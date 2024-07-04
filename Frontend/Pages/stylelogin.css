@@ -12,7 +12,7 @@ body{
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: #dfdfdf;
+    background: linear-gradient(135deg, #858e96, #2b7ccd);
 }
 .login-box{
     display: flex;
@@ -59,7 +59,7 @@ section{
     display: flex;
     align-items: center;
     font-size: 14px;
-    color: #555;
+    color: #161414;
 }
 #check{
     margin-right: 10px;
@@ -71,7 +71,7 @@ a:hover{
     text-decoration: underline;
 }
 section a{
-    color: #555;
+    color: #131111;
 }
 .input-submit{
     position: relative;
