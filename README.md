@@ -1,6 +1,7 @@
-___
+___![Cover](https://github.com/cepdnaclk/e20-co225-Mentormate/assets/150885183/8f6048ae-f2c1-4fc3-8978-18f784150da7)
+
 # Mentor-mate
-___
+
 
 # Personalized AI Tutor for A/L Students.
 
