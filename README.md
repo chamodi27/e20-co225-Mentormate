@@ -1,6 +1,14 @@
 ___
-# DELETE THIS INSTRUCTIONS AND ADD A SHORT INTRODUCTION ABOUT YOUR PROJECT
+Mentor-mate
 ___
+
+Personalized AI Tutor for A/L Students.
+
+User Requirements
+-To create an account
+-Submit answers to provided questions
+-Keep track of user grades
+-Set personalized goals
 
 ## Please refer the instructions in below URL:
 
