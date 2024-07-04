@@ -1,8 +1,8 @@
 ___
-Mentor-mate
+# Mentor-mate
 ___
 
-Personalized AI Tutor for A/L Students.
+# Personalized AI Tutor for A/L Students.
 
 User Requirements
 -To create an account
