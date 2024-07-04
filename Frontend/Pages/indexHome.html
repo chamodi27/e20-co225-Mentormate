@@ -10,7 +10,7 @@
             height: 100%;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #15191d, #11161b);
+            background: linear-gradient(135deg, #858e96, #2b7ccd);
             background-attachment: fixed;
         }
         .container-full {
@@ -32,29 +32,11 @@
         .navigation-buttons a {
             margin: 0 5px;
         }
-        .image-section {
-            position: relative;
-            padding: 0;
-            margin-bottom: 0; 
-        }
-        .image-section img {
-            max-width: 500%;
-            height: 250px;
-            display: block; /* Ensure image behaves like a block element */
-            margin: 0 auto; 
-        }
-        .image-overlay {
-            position: absolute;
-            top: 30%; /* Position vertically in the middle */
-            left: 20%; /* Position to the left of the image */
-            transform: translate(-50%, -50%); /* Center align */
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .image-overlay h2 {
-            margin: 0;
+        .app-name-label {
+            text-align: right;
+            padding: 20px;
             font-size: 24px;
+            color: white;
         }
         .question-area {
             padding: 0;
@@ -64,7 +46,7 @@
         .question-area label {
             font-weight: bold;
             margin-right: 10px;
-            color: #f3f1f1;
+            color: #090909;
         }
         .question-area textarea {
             flex: 1;
@@ -78,6 +60,7 @@
             background-color: #b3c0cb;
             padding: 30px;
             flex-grow: 1;
+            height: 10px; 
             overflow-y: auto;
             margin-left: 50px;
             margin-right: 50px;
@@ -105,12 +88,9 @@
     <!-- Main Content -->
     <div class="container-full">
         <div class="main-content container-fluid">
-            <!-- Image Section -->
-            <section class="image-section">
-                <div class="image-overlay">
-                    <h1 style="color: white;">MENTOR-MATE</h1>
-                </div>
-                <img src="https://media.licdn.com/dms/image/D4E12AQHl_SVPX3ZQTA/article-cover_image-shrink_720_1280/0/1682012519095?e=2147483647&v=beta&t=o8h0B5bGyd5-UTETuEk8SHPY_TJXAnRpV2cKMcSuYJY" alt="Tutor Image" class="img-fluid">
+            <!-- App name -->
+            <section class="app-name-label">
+                <center><h1 style="color: rgb(21, 18, 18); ">MENTOR-MATE</h1></center>               
             </section>
 
             <!-- Answer Area -->
