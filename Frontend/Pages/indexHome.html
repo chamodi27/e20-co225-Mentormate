@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home | Mentor-Mate</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #858e96, #2b7ccd);
+            background-attachment: fixed;
+        }
+        .container-full {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .hero {
+            background-color: #0c0e0f;
+            padding: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .hero h1 {
+            margin: 0;
+        }
+        .navigation-buttons a {
+            margin: 0 5px;
+        }
+        .app-name-label {
+            text-align: right;
+            padding: 20px;
+            font-size: 24px;
+            color: white;
+        }
+        .question-area {
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+        .question-area label {
+            font-weight: bold;
+            margin-right: 10px;
+            color: #090909;
+        }
+        .question-area textarea {
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            line-height: 1.5;
+            resize: none;
+        }
+        .answer-area {
+            background-color: #b3c0cb;
+            padding: 30px;
+            flex-grow: 1;
+            height: 10px; 
+            overflow-y: auto;
+            margin-left: 50px;
+            margin-right: 50px;
+        }
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero container-fluid">
+        <div class="d-flex align-items-center">
+            <front>Personalized Tutor</front>
+        </div>
+        <div class="navigation-buttons">
+            <a href="#" class="btn btn-primary">Home</a>
+            <a href="#" class="btn btn-secondary">Account</a>
+            <a href="#" class="btn btn-success">Explore</a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container-full">
+        <div class="main-content container-fluid">
+            <!-- App name -->
+            <section class="app-name-label">
+                <center><h1 style="color: rgb(21, 18, 18); ">MENTOR-MATE</h1></center>               
+            </section>
+
+            <!-- Answer Area -->
+            <section class="answer-area">
+                <h5>Server's Answer:</h5>
+                <p id="serverAnswer">The server will provide the answer here.</p>
+            </section>
+        </div>
+
+        <!-- User Texting Area -->
+        <section class="question-area">
+            <div class="container">
+                <div class="form-group">
+                    <label for="questionInput">Type your question:</label>
+                    <textarea class="form-control" id="questionInput" rows="3"></textarea>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
