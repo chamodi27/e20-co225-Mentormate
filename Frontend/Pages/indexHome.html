@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | Mentor-Mate</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
     <style>
         html, body {
             height: 100%;
@@ -49,12 +49,14 @@
             color: #090909;
         }
         .question-area textarea {
+            background-color: #b3c0cb;
             flex: 1;
             padding: 10px;
             border-radius: 5px;
             font-size: 16px;
             line-height: 1.5;
             resize: none;
+            margin-bottom: auto;
         }
         .answer-area {
             background-color: #b3c0cb;
@@ -79,7 +81,7 @@
             <front>Personalized Tutor</front>
         </div>
         <div class="navigation-buttons">
-            <a href="#" class="btn btn-primary">Home</a>
+            <a href="indexHome.html" class="btn btn-primary">Home</a>
             <a href="#" class="btn btn-secondary">Account</a>
             <a href="#" class="btn btn-success">Explore</a>
         </div>
@@ -102,7 +104,7 @@
 
         <!-- User Texting Area -->
         <section class="question-area">
-            <div class="container">
+            <div class="container" >
                 <div class="form-group">
                     <label for="questionInput">Type your question:</label>
                     <textarea class="form-control" id="questionInput" rows="3"></textarea>
