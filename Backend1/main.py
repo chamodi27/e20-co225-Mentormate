@@ -7,7 +7,10 @@ pdf_retriver = ChromaRetrevier(db_path="Backend1/vectorDb",collection_name="PDFC
 
 
 print("Welcome to MentorMate: Your Biology Mentor")
+print("-------------------------------------------------")
 user_name = input("Enter your name: ")
+print("Session: ", user_name , " is now active")
+print("-------------------------------------------------")
 while True:
     # getting user input
     print("Ask me anything about biology!")
