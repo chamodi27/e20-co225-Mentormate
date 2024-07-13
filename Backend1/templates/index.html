@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor-Mate</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style>
+        html, body {
+            height: 100%;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        #chatbox {
+            flex: 1;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .input-group {
+            margin-top: auto; /* Pushes the input bar to the bottom */
+            
+        }
+
+    </style>   
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mt-5 mb-3">Mentor-Mate</h1>
+
+        <!-- Chatbot messages container -->
+        <div id="chatbox" class="border rounded p-3 mb-3" style="max-height: 500px; overflow-y: auto;">
+            <!-- Chat messages will be dynamically added here -->
+            <div class="alert alert-primary mb-2" role="alert">
+                I'm Your Mentor-Mate ask me anything about biology!<br>
+                First tell me your name.
+            </div>
+
+            <!-- Example messages -->
+        </div>
+
+        <!-- Input area for user messages -->
+        <div class="input-group mb-5">
+            <input type="text" id="userInput" class="form-control" placeholder="Ask your Question here..." aria-label="Type your message here..." aria-describedby="sendButton">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="button" id="sendButton">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js" integrity="sha384-VzZmg1K1TOePrz4+Jkt8W9SA3jCpXZxF6agpB/8KKcQv2Y5qASw86LdkQGFr3y5c" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+oLr5O7CYuXfQC6D9Ip0rx2h5g/vlTKS0sg" crossorigin="anonymous"></script>
+
+    <!-- Script for handling user input and chatbot responses -->
+    <script>
+        document.getElementById('sendButton').addEventListener('click', function() {
+            var userInput = document.getElementById('userInput').value;
+            if (userInput.trim() !== '') {
+                var userMessageHtml = '<div class="alert alert-dark mb-2 text-right" role="alert">' + userInput + '</div>';
+                document.getElementById('chatbox').innerHTML += userMessageHtml;
+
+                // Send message to backend
+                fetch('/submit_message', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: 'message=' + encodeURIComponent(userInput),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    var botResponseHtml = '<div class="alert alert-primary mb-2" role="alert">' + data.bot_response + '</div>';
+                    document.getElementById('chatbox').innerHTML += botResponseHtml;
+                });
+
+                // Clear input field
+                document.getElementById('userInput').value = '';
+            }
+        });
+    </script>
+</body>
+</html>
