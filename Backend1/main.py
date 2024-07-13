@@ -2,12 +2,15 @@
 from mentor_mate import mentorMate
 from chroma_retriver import ChromaRetrevier
 
-pdf_retriver = ChromaRetrevier(db_path="Backend1/vectorDb",collection_name="PDFCollection")
+pdf_retriver = ChromaRetrevier(db_path="vectorDb",collection_name="PDFCollection")
 
 
 
 print("Welcome to MentorMate: Your Biology Mentor")
+print("-------------------------------------------------")
 user_name = input("Enter your name: ")
+print("Session: ", user_name , " is now active")
+print("-------------------------------------------------")
 while True:
     # getting user input
     print("Ask me anything about biology!")

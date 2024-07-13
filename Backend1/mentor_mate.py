@@ -15,7 +15,7 @@ class mentorMate:
         load_dotenv()
 
     def get_response(self):
-        llm = ChatGroq(temperature=0.4,
+        llm = ChatGroq(temperature=0.3,
                     max_tokens=1000,
                     model="Llama3-8b-8192",
                     streaming=True,)
@@ -23,7 +23,7 @@ class mentorMate:
         system = """your are a helpfull personal tutor. your task is to answer questions about biology based on the content provided.
                     your scope is limited to the content provided. you'are answering to a advanced level high school student.
                     By searching the following content: {content}
-                    Only use the factual information from the content to answer the question.
+                    Only use the factual information from the content to answer the question. Never Answer outside of the content
                     If you feel like you don't have enough information to answer,say "I don't have enough information to answer this question" 
                     your answer should be detailed and informative. First give a short answer using 2-3 sentences, then provide more details and explanations.
                     Never Answer using a single sentence except for the case where you don't have enough information.
