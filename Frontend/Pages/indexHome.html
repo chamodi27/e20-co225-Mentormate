@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home | Mentor-Mate</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet">
     <style>
         html, body {
             height: 100%;
@@ -18,25 +18,14 @@
             flex-direction: column;
             min-height: 100vh;
         }
-        .hero {
-            background-color: #0c0e0f;
-            padding: 20px;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .hero h1 {
-            margin: 0;
-        }
-        .navigation-buttons a {
-            margin: 0 5px;
-        }
         .app-name-label {
             text-align: right;
             padding: 20px;
             font-size: 24px;
             color: white;
+        }
+        .question-area .input-group button {
+            margin-bottom: 99px; 
         }
         .question-area {
             padding: 0;
@@ -49,12 +38,14 @@
             color: #090909;
         }
         .question-area textarea {
+            background-color: #b3c0cb;
             flex: 1;
             padding: 10px;
             border-radius: 5px;
             font-size: 16px;
             line-height: 1.5;
             resize: none;
+            margin-bottom: 100px;
         }
         .answer-area {
             background-color: #b3c0cb;
@@ -74,25 +65,24 @@
 </head>
 <body>
     <!-- Hero Section -->
-    <section class="hero container-fluid">
-        <div class="d-flex align-items-center">
-            <front>Personalized Tutor</front>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <a herf="" class="navbar-brand">&nbsp; Personalize Tutor</a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="ccsl"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse justify-content-center" id="ccsl">
+            <ul class="navbar-nav">
+                <li class="nav-item active"><a href="indexHome.html" class="nav-link">Home</a></li>
+                <li class="nav-item active"><a href="" class="nav-link">Explore</a></li>
+                <li class="nav-item active"><a href="" class="nav-link">Account</a></li>
+            </ul>
         </div>
-        <div class="navigation-buttons">
-            <a href="#" class="btn btn-primary">Home</a>
-            <a href="#" class="btn btn-secondary">Account</a>
-            <a href="#" class="btn btn-success">Explore</a>
-        </div>
-    </section>
-
+    </nav>
     <!-- Main Content -->
     <div class="container-full">
         <div class="main-content container-fluid">
             <!-- App name -->
-            <section class="app-name-label">
-                <center><h1 style="color: rgb(21, 18, 18); ">MENTOR-MATE</h1></center>               
-            </section>
-
+            <div class="app-name-label">
+                <center><h1 style="color: rgb(21, 18, 18); ">MENTOR-MATE</h1> </center>          
+            </div>
             <!-- Answer Area -->
             <section class="answer-area">
                 <h5>Server's Answer:</h5>
@@ -105,7 +95,10 @@
             <div class="container">
                 <div class="form-group">
                     <label for="questionInput">Type your question:</label>
-                    <textarea class="form-control" id="questionInput" rows="3"></textarea>
+                    <div class="input-group">
+                        <textarea class="form-control" id="questionInput" rows="3"></textarea>
+                        <button class="btn btn-primary bg-dark btn-sm" type="button">Submit</button>
+                    </div>
                 </div>
             </div>
         </section>
