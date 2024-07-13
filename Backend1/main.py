@@ -2,7 +2,7 @@
 from mentor_mate import mentorMate
 from chroma_retriver import ChromaRetrevier
 
-pdf_retriver = ChromaRetrevier(db_path="Backend1/vectorDb",collection_name="PDFCollection")
+pdf_retriver = ChromaRetrevier(db_path="vectorDb",collection_name="PDFCollection")
 
 
 

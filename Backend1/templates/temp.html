@@ -30,7 +30,7 @@
 
 <body>
     <div class="container">
-        <h1 class="mt-5 mb-3 text-center">Mentor-Mate</h1>
+        <h1 class="mt-5 mb-3">Mentor-Mate</h1>
 
         <!-- Input area for user name -->
         <div class="input-group mb-3">
@@ -43,7 +43,7 @@
         <!-- Chatbot messages container -->
         <div id="chatbox" class="border rounded p-3 mb-3" style="max-height: 500px; overflow-y: auto;">
             <!-- Chat messages will be dynamically added here -->
-            <div class="alert alert-info mb-3 text-body-secondary" role="alert">
+            <div class="alert alert-primary mb-2" role="alert">
                 I'm Your Mentor-Mate, ask me anything about biology!
             </div>
         </div>
@@ -77,8 +77,8 @@
             var userName = document.getElementById('userName').value;
             if (userInput.trim() !== '') {
                // var userMessageHtml = '<div class="alert alert-dark mb-2 text-right" role="alert">' + userInput + '</div>';
-                var userMessageHtml = '<div class="d-flex flex-row justify-content-end mb-3">' +
-                                          '<div class=" p-3 me-3 border bg-body-tertiary" style="border-radius: 15px;">' + userInput + '</div>' +
+                var userMessageHtml = '<div class="d-flex flex-row justify-content-end">' +
+                                          '<div class="user-message">' + userInput + '</div>' +
                                       '</div>';
                 document.getElementById('chatbox').innerHTML += userMessageHtml;
 
@@ -92,7 +92,7 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    var botResponseHtml = '<div class="alert alert-info mb-3 text-body-secondary" role="alert">' + data.bot_response + '</div>';
+                    var botResponseHtml = '<div class="alert alert-primary mb-2" role="alert">' + data.bot_response + '</div>';
                     document.getElementById('chatbox').innerHTML += botResponseHtml;
                 });
 
