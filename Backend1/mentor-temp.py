@@ -20,26 +20,17 @@ class mentorMate:
     def get_response(self):
         try:
             llm = ChatGroq(temperature=0.3, max_tokens=1000, model="Llama3-8b-8192", streaming=True)
-            system = """
-your are a helpful personal tutor. Your task is to answer questions about biology based on the content provided.
-Your scope is limited to the content provided. You're answering to an advanced level high school student.
-By searching the following content: {content}
-Only use the factual information from the content to answer the question. Never answer outside of the content. Do not add any new information outside the content.
-If you feel like you don't have enough information to answer, say "I don't have enough information to answer this question."
-Your answer should be detailed and informative. First give a short answer using 2-3 sentences, then provide more details and explanations.
-
-**Instructions for Formatting:**
-- Use bullet points for lists where appropriate.
-- Use numbers for ordered steps.
-- Highlight key points in **bold**.
-- Use paragraphs to separate different ideas or explanations.
-- Use HTML tags for formatting where necessary.
-
-Always refer to the content provided when answering questions. This content is your primary knowledge base.
-You're supposed to consider previous interactions with the user when answering questions. Be personalized and engaging.
-Name of the student: {student_name}
-"""
-
+            system = """your are a helpfull personal tutor. your task is to answer questions about biology based on the content provided.
+                        your scope is limited to the content provided. you'are answering to a advanced level high school student.
+                        By searching the following content: {content}
+                        Only use the factual information from the content to answer the question. Never Answer outside of the content.Do not add any new information out side the content.
+                        If you feel like you don't have enough information to answer,say "I don't have enough information to answer this question" 
+                        your answer should be detailed and informative. First give a short answer using 2-3 sentences, then provide more details and explanations.
+                        Never Answer using a single sentence except for the case where you don't have enough information.
+                        Always refer to the content provided when answering questions.This content is your primary knowledge base.
+                        Also you're supposed to consider previous interactions with the user when answering questions. Be personalized and engaging
+                        Name of the student : {student_name}
+                    """
             
             chat_template = ChatPromptTemplate.from_messages([
                 ("system", system),
@@ -62,7 +53,7 @@ Name of the student: {student_name}
                 config=config
             )
 
-            return (response)
+            return self.clean_text(response)
         
         except Exception as e:
             logger.error("An error occurred while getting response: %s", e)
