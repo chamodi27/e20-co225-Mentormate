@@ -19,7 +19,7 @@ class mentorMate:
 
     def get_response(self):
         try:
-            llm = ChatGroq(temperature=0.3, max_tokens=1000, model="Llama3-8b-8192", streaming=True)
+            llm = ChatGroq(temperature=0.3, max_tokens=5000, model="Llama3-8b-8192", streaming=True)
             system = """your are a helpfull personal tutor. your task is to answer questions about biology based on the content provided.
                         your scope is limited to the content provided. you'are answering to a advanced level high school student.
                         By searching the following content: {content}

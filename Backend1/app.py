@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from mentor_mate import mentorMate
 from chroma_retriver import ChromaRetrevier
+import markdown
 
 pdf_retriver = ChromaRetrevier(db_path="vectorDb", collection_name="PDFCollection")
 print(pdf_retriver.collection.count())
@@ -30,8 +31,12 @@ def submit_message():
     bot_response = mentor.get_response()
     # Log bot_response value to console 
     print("Bot Response:", bot_response)
+    if bot_response=="":
+        bot_response = "Sorry, Servers are down. Please try again later."
+        
+    bot_response_html = markdown.markdown(bot_response)
           
-    return jsonify({'bot_response': bot_response})
+    return jsonify({'bot_response': bot_response_html})
 
 if __name__ == '__main__':
     app.run(debug=True)
