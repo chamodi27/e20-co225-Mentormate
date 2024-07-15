@@ -22,6 +22,7 @@ def submit_message():
     # Process the message (e.g., interact with your chatbot backend)
     
     similarity_docs = pdf_retriver.query_documents(message)
+    print("Similarity Docs:", similarity_docs)
  
 
     mentor = mentorMate(message, similarity_docs, str(user_name))

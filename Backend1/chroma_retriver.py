@@ -23,5 +23,6 @@ class ChromaRetrevier:
         return results['documents']
 
 
-        
+    def get_all_documents(self):
+        return self.collection.get(include=["documents"],limit=20)
 
