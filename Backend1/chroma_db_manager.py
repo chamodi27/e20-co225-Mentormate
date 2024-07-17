@@ -41,7 +41,7 @@ class ChromaDBManager:
                 metadatas=[page.metadata]
             )
 
-    def query_documents(self, query_texts, n_results=2):
+    def query_documents(self, query_texts, n_results=4):
         if not self.collection:
             raise ValueError("Collection is not set up. Call setup_collection() first.")
         
