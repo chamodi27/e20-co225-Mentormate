@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import './App.css';
+import Login from './Pages/Login';
 
 function App() {
   
 
   return (
     <>
-    <div className='App'>
-    <h1>Hii</h1>
-    </div>
+    <Login></Login>
     </>
   );
 }
