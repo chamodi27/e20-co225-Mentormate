@@ -6,9 +6,11 @@ function Login(){
 
     return(<>
 
-    <div>
+    <div className="login-box">
     
-    <h1>Login</h1>
+    <div class = "login-header">
+            <header>Login</header>
+    </div>
 
     <div className="input-box">
     <input type="text" class="input-field" placeholder="Email" autocomplete="off" required/>
