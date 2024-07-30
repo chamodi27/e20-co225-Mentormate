@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import './App.css';
+import './index.css'
 import {Route, Routes} from "react-router-dom";
 import Login from './Pages/Login';
 import Navbar from './Components/Navbar';
 import Explore from './Pages/Explore';
 import Account from './Pages/Account';
 import Home from './Pages/Home';
+import Signup from './Pages/Signup';
 
 
 function App() {
@@ -26,7 +28,13 @@ function App() {
 
     */}
 
+    {/*
+
     <Login></Login>
+    
+    */}
+    <Signup></Signup>
+    
 
     
     
