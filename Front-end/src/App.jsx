@@ -14,6 +14,7 @@ function App() {
 
   return (
     <>
+    {/* This part is for the Nav bar
     <Navbar/>
     <div className='component-container'>
      <Routes>
@@ -23,7 +24,12 @@ function App() {
      </Routes>
     </div> 
 
-      <Login></Login>
+    */}
+
+    <Login></Login>
+
+    
+    
     
     </>
   );
