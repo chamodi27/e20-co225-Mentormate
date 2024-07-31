@@ -30,14 +30,13 @@ function App() {
 
     {/*
 
-    
-    
-    
-    <Signup></Signup> */}
     <Login></Login>
     
-
+    */}
+    <Signup></Signup> 
     
+    
+
     
     
     </>
