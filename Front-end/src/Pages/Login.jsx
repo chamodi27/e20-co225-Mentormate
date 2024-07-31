@@ -1,5 +1,6 @@
 import React from "react";
 import './Login.css';
+import { Link } from "react-router-dom";
 
 function Login(){
 
@@ -9,7 +10,7 @@ function Login(){
     <div className="login-box">
     
     <div class = "login-header">
-            <header>Login</header>
+            <header>Login | MentorMate</header>
     </div>
 
     <div className="input-box">
@@ -37,14 +38,11 @@ function Login(){
     </div>
 
     <div class="sign-up-link">
-            <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+            <p>Don't have an account? <Link to="/signup">Sign Up</Link></p>
     </div>
 
     </div>
 
-    
-        
-        
             </>);
 }
 export default Login;
