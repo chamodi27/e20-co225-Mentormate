@@ -9,11 +9,31 @@
     <style>
         html, body {
             height: 100%;
+            margin: 0;
         }
-        .container {
+        .container-fluid {
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            overflow: hidden;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #343a40;
+            color: white;
+            padding: 15px;
             display: flex;
             flex-direction: column;
-            height: 100%;
+        }
+        .sidebar h2, .sidebar h3 {
+            color: white;
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            overflow: hidden;
         }
         #chatbox {
             flex: 1;
@@ -25,34 +45,58 @@
         .input-group {
             margin-top: auto; /* Pushes the input bar to the bottom */
         }
-    </style>   
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1 class="mt-5 mb-3">Mentor-Mate</h1>
-
-        <!-- Input area for user name -->
-        <div class="input-group mb-3">
-            <input type="text" id="userName" class="form-control" placeholder="Enter your name..." aria-label="Enter your name" aria-describedby="startButton">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="button" id="startButton">Start</button>
-            </div>
+    <div class="container-fluid">
+        <div class="sidebar">
+            <h2>Chat Sessions</h2>
+            <ul class="list-group mb-3">
+                <li class="list-group-item list-group-item-action bg-dark text-white">Session 1</li>
+                <li class="list-group-item list-group-item-action bg-dark text-white">Session 2</li>
+                <li class="list-group-item list-group-item-action bg-dark text-white">Session 3</li>
+                <!-- Add more sessions as needed -->
+            </ul>
+            <h3>Useful Links</h3>
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-action bg-dark text-white">
+                    <a href="https://www.example.com" target="_blank" class="text-white">Example Link 1</a>
+                </li>
+                <li class="list-group-item list-group-item-action bg-dark text-white">
+                    <a href="https://www.example2.com" target="_blank" class="text-white">Example Link 2</a>
+                </li>
+                <li class="list-group-item list-group-item-action bg-dark text-white">
+                    <a href="https://www.example3.com" target="_blank" class="text-white">Example Link 3</a>
+                </li>
+                <!-- Add more links as needed -->
+            </ul>
         </div>
+        <div class="main-content">
+            <h1 class="mt-5 mb-3 text-center">Mentor-Mate</h1>
 
-        <!-- Chatbot messages container -->
-        <div id="chatbox" class="border rounded p-3 mb-3" style="max-height: 500px; overflow-y: auto;">
-            <!-- Chat messages will be dynamically added here -->
-            <div class="alert alert-primary mb-2" role="alert">
-                I'm Your Mentor-Mate, ask me anything about biology!
+            <!-- Input area for user name -->
+            <div class="input-group mb-3">
+                <input type="text" id="userName" class="form-control" placeholder="Enter your name..." aria-label="Enter your name" aria-describedby="startButton">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button" id="startButton">Start</button>
+                </div>
             </div>
-        </div>
 
-        <!-- Input area for user messages -->
-        <div class="input-group mb-5">
-            <input type="text" id="userInput" class="form-control" placeholder="Ask your question here..." aria-label="Type your message here..." aria-describedby="sendButton" disabled>
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="button" id="sendButton" disabled>Send</button>
+            <!-- Chatbot messages container -->
+            <div id="chatbox" class="border rounded p-3 mb-3" style="max-height: 500px; overflow-y: auto;">
+                <!-- Chat messages will be dynamically added here -->
+                <div class="alert alert-info mb-3 text-body-secondary" role="alert">
+                    I'm Your Mentor-Mate, ask me anything about biology!
+                </div>
+            </div>
+
+            <!-- Input area for user messages -->
+            <div class="input-group mb-5">
+                <input type="text" id="userInput" class="form-control" placeholder="Ask your question here..." aria-label="Type your message here..." aria-describedby="sendButton" disabled>
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button" id="sendButton" disabled>Send</button>
+                </div>
             </div>
         </div>
     </div>
@@ -76,9 +120,8 @@
             var userInput = document.getElementById('userInput').value;
             var userName = document.getElementById('userName').value;
             if (userInput.trim() !== '') {
-               // var userMessageHtml = '<div class="alert alert-dark mb-2 text-right" role="alert">' + userInput + '</div>';
-                var userMessageHtml = '<div class="d-flex flex-row justify-content-end">' +
-                                          '<div class="user-message">' + userInput + '</div>' +
+                var userMessageHtml = '<div class="d-flex flex-row justify-content-end mb-3">' +
+                                          '<div class=" p-3 me-3 border bg-body-tertiary" style="border-radius: 15px;">' + userInput + '</div>' +
                                       '</div>';
                 document.getElementById('chatbox').innerHTML += userMessageHtml;
 
@@ -92,7 +135,7 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    var botResponseHtml = '<div class="alert alert-primary mb-2" role="alert">' + data.bot_response + '</div>';
+                    var botResponseHtml = '<div class="alert alert-info mb-3 text-body-secondary" role="alert">' + data.bot_response + '</div>';
                     document.getElementById('chatbox').innerHTML += botResponseHtml;
                 });
 
