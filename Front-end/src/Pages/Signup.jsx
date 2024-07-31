@@ -5,48 +5,48 @@ function Signup(){
 
     return(
         <>
-        <div className = "container mx-auto px-8 shadow-2xl object-cover" >
-            <div className = "login-header pt-5 justify-center">
+        <div className = "container mx-auto px-8 shadow-2xl object-cover " >
+            <div className = "login-header pt-5 justify-center max-h-10">
                 <center><header>Sign up | MentorMate</header></center>
             </div>
 
             <form>
-                <div className="grid-cols-2 flex items-center gap-4 pb-2 justify-start">
+                <div className="grid-cols-2 flex items-center gap-4 pb-2 justify-start flex-row">
                     <label className = "text-slate-800-bold "for="username" >User Name</label>
                     <div >
-                    <input className="box-border rounded"type="text" placeholder = "Username" id="username"/>
+                    <input className="box-border rounded border-none pl-1"type="text" placeholder = "Username" id="username"/>
                     </div>
                 </div>
 
                 <div className="justify-start grid-cols-3 flex items-stretch gap-4 pb-2">
                     <label for="name" class="col-sm-2 col-form-label" >Name</label>
                     <div className="pl-10">
-                    <input type="text" className="rounded" placeholder="First name" aria-label="First name"/>
+                    <input type="text" className="rounded pl-1" placeholder="First name" aria-label="First name"/>
                     </div>
                     <div class="col-sm-4">
-                    <input type="text" className="rounded" placeholder="Last name" aria-label="Last name"/>
+                    <input type="text" className="rounded pl-1" placeholder="Last name" aria-label="Last name"/>
                     </div>
                 </div>
 
                 <div className="justify-start grid-cols-2 flex items-stretch gap-4 pb-2">
                 <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
                 <div className="pl-11">
-                    <input type="email" className="rounded" placeholder = "Email" id="inputEmail3"/>
+                    <input type="email" className="rounded pl-1" placeholder = "Email" id="inputEmail3"/>
                 </div>
                 </div>
 
                 <div className="justify-start grid-cols-2 flex items-stretch gap-4 pb-2">
                 <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
                 <div className="pl-3">
-                    <input type="password" className="rounded" placeholder = "Password" id="inputPassword3"/>
+                    <input type="password" className="rounded pl-1" placeholder = "Password" id="inputPassword3"/>
                 </div>
                 </div>
 
-                <div className="justify-start grid-cols-1 flex items-center gap-4 pb-2">
-                <div className="justify-start grid-cols-3 flex items-center gap-4  ">
-                    <label for="dob" class="col-sm-2 col-form-label">Date of Birth</label>
+                <div className="justify-start grid-cols-1 flex flex-row items-center gap-4 pb-2">
+                <div className="justify-start grid-cols-3 flex flex-row items-center gap-4  ">
+                    <label for="dob" class="">Date of Birth</label>
                     <div className="pl-2 ">
-                    <input type="number" className="rounded" placeholder="Date" aria-label="Date"/>
+                    <input type="number" className="rounded flex-initial w-32 pl-1" placeholder="Date" aria-label="Date"/>
                     </div>
                     <div class="col-sm-3">
                     <label class="visually-hidden" for="autoSizingSelect"></label>
@@ -67,8 +67,8 @@ function Signup(){
                     </select>
                     </div>
                     
-                    <div className="">
-                    <input type="number" className="rounded" placeholder="Year" aria-label="Year"/>
+                    <div className="w-auto">
+                    <input type="number" className="rounded pl-1" placeholder="Year" aria-label="Year"/>
                     </div>
             
                 </div>
@@ -98,8 +98,8 @@ function Signup(){
                 </div>
 
         
-                <div className=" justify-center box-border shadow-lg shadow-gray-800 cursor-pointer hover:shadow-gray-500">
-                <center><a href="indexlogin.html" className="font-bold">Sign up</a></center>
+                <div className=" justify-center box-border shadow-lg shadow-gray-800 cursor-pointer hover:shadow-gray-500 container mx-auto border-solid border-2 border-slate-400 hover:box-content w-64 h-8">
+                <center><a href="indexlogin.html" className=" justify-center font-bold">Sign up</a></center>
                 </div>
 
             

@@ -25,7 +25,9 @@ function Navbar() {
         <Link to='/' className='app-name'>MentorMate</Link>
         <ul>
             <CustomLink to='/explore'>Explore</CustomLink>
-            <CustomLink to='/account'>Account</CustomLink>     
+            <CustomLink to='/account'>Account</CustomLink>
+            <CustomLink to='/login'>Login</CustomLink>
+            <CustomLink to='/signup'>Signup</CustomLink>
         </ul>
      </nav>   
     
