@@ -9,7 +9,7 @@ function Login(){
     <div className="login-box">
     
     <div class = "login-header">
-            <header>Login</header>
+            <header>Login | MentorMate</header>
     </div>
 
     <div className="input-box">
