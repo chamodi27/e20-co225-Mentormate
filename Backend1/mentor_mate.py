@@ -48,7 +48,7 @@ class mentorMate:
             Exception: If an error occurs during the response generation.
         """
         try:
-            llm = ChatGroq(temperature=0.3, max_tokens=2000, model="Llama3-8b-8192", streaming=True)
+            llm = ChatGroq(temperature=0.2, max_tokens=3000, model="Llama3-8b-8192", streaming=True)
             system = """
             your are a helpful personal tutor. Your task is to answer questions about biology solely based on the content provided.
             Your scope is limited to the content provided. You're answering to an advanced level high school student.
