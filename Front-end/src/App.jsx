@@ -8,6 +8,7 @@ import Explore from './Pages/Explore';
 import Account from './Pages/Account';
 import Home from './Pages/Home';
 import Signup from './Pages/Signup';
+import Subject from './Pages/Subject';
 
 
 function App() {
@@ -28,6 +29,8 @@ function App() {
     
     </BrowserRouter>
     */}
+
+    {/* Routes 
     
      <Routes>
         <Route path="/" element={<Home/>}/>
@@ -37,7 +40,8 @@ function App() {
         <Route path="/signup" element={<Signup/>}/>
      </Routes>
     
-
+    */}
+    <Subject></Subject>
     
 
     {/*
