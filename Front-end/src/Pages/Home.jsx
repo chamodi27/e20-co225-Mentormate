@@ -1,6 +1,7 @@
 import Navbar from '../Components/Navbar';
 import coverImage from '../assets/Cover.png';
 
+
 function Home(){
 
 
@@ -27,6 +28,7 @@ function Home(){
             <li>Gives personalized feedback</li>
             </ul>
         </div>
+        
     </div>
     </>)
 }

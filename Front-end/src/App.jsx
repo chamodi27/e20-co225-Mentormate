@@ -30,7 +30,7 @@ function App() {
     </BrowserRouter>
     */}
 
-    {/* Routes 
+    
     
      <Routes>
         <Route path="/" element={<Home/>}/>
@@ -39,9 +39,10 @@ function App() {
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<Signup/>}/>
      </Routes>
-    
-    */}
-    <Subject></Subject>
+     
+    {/*For now I added this page here */}
+     <Subject></Subject>
+  
     
 
     {/*
