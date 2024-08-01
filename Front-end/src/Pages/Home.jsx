@@ -14,7 +14,7 @@ function Home(){
                     <h2 className='pt-2 text-xl'>Your Personalized AI Tutor</h2>
                 </div>
 
-        <div className='mt-10 w-full'>
+        <div className='mt-10 w-full px-10'>
             <img src={coverImage} alt="Cover" className='w-full rounded-lg shadow-lg' />
         </div>
 
