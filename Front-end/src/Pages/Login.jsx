@@ -32,8 +32,8 @@ function Login(){
     </div>
 
     <div class="input-submit">
-            <button class="submit-btn" id="submit" onclick="redirectToHome()">Sign In</button>
-            <label for="submit">Sign In</label>
+            <button class="submit-btn" id="submit" onclick="redirectToHome()">Log In</button>
+            <label for="submit">Log In</label>
             
     </div>
 
