@@ -1,9 +1,11 @@
-/* *{
+ *{
     box-sizing: border-box;
-} */
+} 
 
 body{
     margin: 0;
+    padding-top: 0px;
+    
 }
 
 .component-container{
@@ -11,7 +13,7 @@ body{
     text-align: center;
 }
 
-.navbar{
+/* .navbar{
     background-color: rgba(56, 39, 39, 0.709);
     color: aliceblue;
     display: flex;
@@ -19,6 +21,21 @@ body{
     align-items: center;
     gap: 2rem;
     padding: 0 1rem;
+} */
+
+.navbar {
+    position: fixed; /* Fixes the navbar at the top */
+    top: 0; /* Aligns it to the top */
+    left: 0; /* Aligns it to the left */
+    width: 100%; /* Ensures it spans the full width of the page */
+    background-color: rgba(56, 39, 39, 0.709);
+    color: aliceblue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    padding: 0 1rem;
+    z-index: 10; /* Ensures it stays above other content */
 }
 
 .app-name{
@@ -50,4 +67,8 @@ body{
 
 .navbar li:hover{
     background-color: #777;
+}
+
+.content {
+    padding-top: 60px; /* Add padding to prevent content from being hidden behind the navbar */
 }

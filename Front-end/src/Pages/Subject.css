@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif; /* General font for the body */
+}
+
+.navbar-sub {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 0px;
+    z-index: 10; /* Ensure it appears above other content */
+}
+
+.main-header {
+    position: fixed; /* Keeps the header fixed in the viewport */
+    top: 70px; /* Positions it 60px down from the top */
+    left: 20px; /* Positions it 20px from the left */
+    width: auto; /* Adjust width as needed */
+    font-weight: bold;
+    font-size: 2.5rem;
+    color: #074c91;
+    z-index: 10;
+    font-family: 'Poppins',sans-serif;
+}
+
+
+.content {
+    padding-top: 100px;
+    margin: 1rem;
+}
+
+.card-container {
+    display: flex;
+    gap: 20px; /* Space between the two containers */
+    margin-top: 30px; /* Space below the main header */
+    margin-left: 20px; /* Align with main header left padding */
+}
+
