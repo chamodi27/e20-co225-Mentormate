@@ -1,28 +1,28 @@
-.card-phy{
+.card-chem{
     border: 1px solid rgb(66, 65, 65);
     border-radius: 10px;
     box-shadow: 5px 5px 5px hsla(0, 0%, 0%, 0.2);
     padding: 20px;
     margin: 10px;
     text-align: center;
-    max-width: 250px;
+    max-width: 248px;
     height: 328px;
     display: inline-block;
     cursor: pointer;
 }
 
-.card-phy .phy-header{
+.card-chem .chem-header{
     font-weight: bold;
 }
 
-.card-phy .phy-card-img{
+.card-chem .chem-card-img{
     height: 215px;
     padding-left: 3px;
     border-radius: 15%;
     margin-bottom: 5px;
 }
 
-.card-phy:hover{
-    background: rgb(111, 90, 218);
+.card-chem:hover{
+    background: rgb(173, 106, 18);
     transform: scale(1.02,1);
 }

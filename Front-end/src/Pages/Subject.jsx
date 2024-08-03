@@ -3,6 +3,8 @@ import Navbar from '../Components/Navbar';
 import './Subject.css';
 import SubjectCardBio from "../Components/SubjectCardBio";
 import SubjectCardPhysics from "../Components/SubjectCardPhysics";
+import SubjectCardMaths from "../Components/SubjectCardMaths";
+import SubjectCardChemistry from "../Components/SubjectCardChemistry";
 
 
 function Subject(){
@@ -19,6 +21,8 @@ function Subject(){
             <div className="card-container">
                 <div className="bio-container"><SubjectCardBio/></div>
                 <div className="physics-container"><SubjectCardPhysics/></div>
+                <div className="maths-container"><SubjectCardMaths/></div>
+                <div className="chem-container"><SubjectCardChemistry/></div>
 
             </div>
         </div>

@@ -31,16 +31,16 @@ function App() {
     */}
 
     
-    
-     <Routes>
-        <Route path="/" element={<Home/>}/>
+    {/*
+      <Routes>
+         <Route path="/" element={<Home/>}/>
         <Route path="/explore" element={<Explore/>}/>
         <Route path="/account" element={<Account/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<Signup/>}/>
-     </Routes>
+     </Routes> */}
      
-    {/*For now I added this page here */}
+    {/* For now I added this page here  */}
      <Subject></Subject>
   
     
