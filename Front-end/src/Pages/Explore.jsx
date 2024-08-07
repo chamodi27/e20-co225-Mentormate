@@ -1,16 +1,15 @@
+import { BrowserRouter, Routes, Link } from "react-router-dom";
+import BioMainUnit from "./BioMainUnit";
 import Navbar from "../Components/Navbar";
 
-function Explore(){
-
-
-    return(
-    <>
-
-    <Navbar></Navbar>
-
-    <h1>Explore Page</h1>
-    
-    </>)
+function Explore() {
+    return (
+        <>
+            
+            <BioMainUnit/>
+            
+        </>
+    );
 }
 
 export default Explore;
