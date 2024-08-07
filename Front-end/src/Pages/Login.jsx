@@ -27,7 +27,7 @@ function Login(){
                 <label for="check">Remember me</label>
             </section>
             <section>
-                <a href="forgetPassword.html">Forgot password</a>
+                <a href="Front-end\src\Pages\forgetPassward.jsx">Forgot password</a>
             </section>
     </div>
 
