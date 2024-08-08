@@ -10,7 +10,6 @@ import Home from './Pages/Home';
 import Signup from './Pages/Signup';
 import Subject from './Pages/Subject';
 
-
 function App() {
   
   
@@ -52,9 +51,6 @@ function App() {
     <Signup></Signup> 
     
     */}
-    
-    
-    
 
     
     
