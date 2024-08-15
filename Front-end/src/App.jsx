@@ -10,7 +10,6 @@ import Home from './Pages/Home';
 import Signup from './Pages/Signup';
 
 
-
 function App() {
   
   
@@ -51,9 +50,6 @@ function App() {
     <Signup></Signup> 
     
     */}
-    
-    
-    
 
     
     
