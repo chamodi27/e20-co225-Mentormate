@@ -12,7 +12,6 @@ function SubjectCardChemistry(){
             <h2 className='chem-header'>CHEMISTRY</h2>
             <p>Chemistry is fun.</p>
 
-
         </div>
         
         
