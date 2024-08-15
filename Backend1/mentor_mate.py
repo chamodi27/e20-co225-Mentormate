@@ -4,11 +4,21 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_community.chat_message_histories import SQLChatMessageHistory
 from langchain.schema.output_parser import StrOutputParser
+from langchain_core.messages import HumanMessage , AIMessage
+from langchain.memory import ConversationBufferMemory
+from chroma_retriver import ChromaRetrevier
 from dotenv import load_dotenv
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+pdf_retriver = ChromaRetrevier(db_path="vectorDb", collection_name="PDFCollection")
+print(pdf_retriver.collection.count())
+
+
+#Global varibles to store short term chat history to rewrit the query
+history = []
 
 class mentorMate:
     """
@@ -20,7 +30,7 @@ class mentorMate:
         user_name (str): The name of the user.
     """
 
-    def __init__(self, user_input, similarity_doc, user_name):
+    def __init__(self, user_input, user_name):
         """
         Initializes the mentorMate class with user input, similarity document, and user name.
 
@@ -30,9 +40,11 @@ class mentorMate:
             user_name (str): The name of the user.
         """
         self.user_input = user_input
-        self.similarity_doc = similarity_doc
+        
         self.user_name = user_name
+        
         load_dotenv()
+        
 
     def get_response(self):
         """
@@ -69,26 +81,80 @@ class mentorMate:
             - Use headings to organize the content.
             """
 
+            query_rewrite_template = """Given a chat history and the latest user question 
+            which might reference context in the chat history, formulate a standalone question 
+            which can be understood without the chat history. Do NOT answer the question, 
+            just reformulate it if needed and otherwise return it as it is. Try to keep the original question's meaning.
+            only refomulate the question if it is necessary to understand it without the context of the chat history.
+            finally, this reformulated question will be used to search for similar content in a vector database.
+
+            Refer to the following example for more clarity: 
+            chat history: [HumanMessage(content='tell me about protein'), AIMessage(content="**Proteins**\n\nProteins are complex biomolecules that play a crucial role in various cellular processes. According to the content, proteins are made up of amino acids, which are the building blocks of proteins. There are 20 different amino acids involved in the formation of proteins, and each amino acid has a unique structure)]
+            latest user question: "what are the importances if it"
+            reformulated question: "what are the importances of proteins?"
+            End of example.
+            
+            chat history: {chat_history}
+            latest user question: {latest_user_question}
+            only output the reformulated question as the response. nothing else.
+            """
+
+            history.append(HumanMessage(self.user_input))
+            query_rewrite_humman_msg = history[0]
+
+            query_rewrite_prompt = ChatPromptTemplate.from_template(query_rewrite_template)
+            query_rewrite_chain = query_rewrite_prompt | llm | StrOutputParser()
+
+            re_written_query = query_rewrite_chain.invoke(
+                {"chat_history": history, "latest_user_question": self.user_input}
+            )
+
+            new_similarity_docs = pdf_retriver.query_documents(re_written_query)
+            
+
+            print("----------------------------------------------")
+            print("Re-written query: ", re_written_query)
+            print("----------------------------------------------")
+            print("Similarity Docs: ", new_similarity_docs)
+
             chat_template = ChatPromptTemplate.from_messages([
                 ("system", system),
                 MessagesPlaceholder(variable_name="history"),
                 ("human", "{question}")
             ])
+
             
-            chain = chat_template | llm | StrOutputParser()
-            chain_with_history = RunnableWithMessageHistory(
-                chain,
-                lambda session_id: SQLChatMessageHistory(session_id=session_id, connection="sqlite:///chatHistory.db"),
-                input_messages_key="question",
-                history_messages_key="history",
+            
+            chain =  chat_template | llm | StrOutputParser()
+           
+            response = chain.invoke(
+                {"question": self.user_input, "content": new_similarity_docs, "student_name": self.user_name , "history": history},
+                
             )
 
-            config = {"configurable": {"session_id": self.user_name}}
+            
+            history.append(AIMessage(response))
+            query_rewrite_AI_msg = history[1]
 
-            response = chain_with_history.invoke(
-                {"question": self.user_input, "content": self.similarity_doc, "student_name": self.user_name},
-                config=config
-            )
+            if len(history) > 4:
+                prev_humman_msg = history.pop(0)
+                prev_AI_msg = history.pop(0)
+
+            print()
+            print("history: ", history)
+            print("Query rewrite humman msg: ", query_rewrite_humman_msg)
+            print("Query rewrite AI msg: ", query_rewrite_AI_msg)
+            print()
+            try:
+                if prev_humman_msg:  # or you can use `if my_variable is not None:`
+                
+                    print("prev_humman_msg: ", prev_humman_msg) 
+
+            except NameError:
+                # Logic if the variable is not set
+                print("Variable is not set.")
+
+            print()
 
             return response
         

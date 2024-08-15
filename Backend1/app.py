@@ -3,8 +3,8 @@ from mentor_mate import mentorMate
 from chroma_retriver import ChromaRetrevier
 import markdown
 
-pdf_retriver = ChromaRetrevier(db_path="vectorDb", collection_name="PDFCollection")
-print(pdf_retriver.collection.count())
+#pdf_retriver = ChromaRetrevier(db_path="vectorDb", collection_name="PDFCollection")
+#print(pdf_retriver.collection.count())
 
 app = Flask(__name__)
 
@@ -22,11 +22,11 @@ def submit_message():
     print("User Name:", user_name)
     # Process the message (e.g., interact with your chatbot backend)
     
-    similarity_docs = pdf_retriver.query_documents(message)
-    print("Similarity Docs:", similarity_docs)
+    #similarity_docs = pdf_retriver.query_documents(message)
+    #print("Similarity Docs:", similarity_docs)
  
 
-    mentor = mentorMate(message, similarity_docs, str(user_name))
+    mentor = mentorMate(message,  str(user_name))
 
     bot_response = mentor.get_response()
     # Log bot_response value to console 
