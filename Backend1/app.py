@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-from mentor_mate import mentorMate
+from mentor_redis import mentorMate
 from chroma_retriver import ChromaRetrevier
 import markdown
 
