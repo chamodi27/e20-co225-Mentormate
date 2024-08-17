@@ -17,16 +17,16 @@ def index():
 @app.route('/submit_message', methods=['POST'])
 def submit_message():
     message = request.form['message']
-    user_name = request.form['user_name']  # Retrieve username from form data
+    user_email = request.form['user_email']  # Retrieve username from form data
     print("User Message:", message)
-    print("User Name:", user_name)
+    print("User email:", user_email)
     # Process the message (e.g., interact with your chatbot backend)
     
     #similarity_docs = pdf_retriver.query_documents(message)
     #print("Similarity Docs:", similarity_docs)
  
 
-    mentor = mentorMate(message,  str(user_name))
+    mentor = mentorMate(user_input=message, user_email=user_email)
 
     bot_response = mentor.get_response()
     # Log bot_response value to console 

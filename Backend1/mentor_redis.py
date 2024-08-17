@@ -9,6 +9,8 @@ from langchain.memory import ConversationBufferMemory
 from chroma_retriver import ChromaRetrevier
 import redis
 from persistant_chat_history_manager import ChatHistoryManager
+from langchain.output_parsers import StructuredOutputParser , ResponseSchema
+from langchain_core.prompts import PromptTemplate
 from dotenv import load_dotenv
 
 # Configure Redis for message caching (chat history)
@@ -18,17 +20,19 @@ r = redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True)
 CHAT_HISTORY_KEY_PREFIX = "chat_history:"
 
 class mentorMate:
-    def __init__(self, user_input, user_name):
-        self.user_input = user_input
-        self.user_name = user_name
-        self.redis_key = f"{CHAT_HISTORY_KEY_PREFIX}{user_name}"
-        self.chat_history_manager = ChatHistoryManager(user_name=user_name)
+    def __init__(self, user_input,user_email):
+        self.user_input = user_input 
+        self.user_email = user_email
+        self.redis_key = f"{CHAT_HISTORY_KEY_PREFIX}{user_email}"
+        self.chat_history_manager = ChatHistoryManager(user_email=user_email)
+        self.user_name = self.chat_history_manager.user_name
         load_dotenv()
 
     def get_response(self):
         try:
             # Retrieve the chat history from Redis
             history = r.lrange(self.redis_key, -4, -1)
+
             print("-------------------------------------------------------")
             print("Chat History retrived:", history)
             print("-------------------------------------------------------")
@@ -41,15 +45,37 @@ class mentorMate:
                 else:  # Odd index: AIMessage
                     formatted_history.append(AIMessage(content=msg))
 
-            # Add the current user input to the chat history
-            formatted_history.append(HumanMessage(self.user_input))
-            print("formatted_history:", formatted_history)
+            #check if the topic has changed
+            topic_changed_dict = self.is_topic_changed(history=formatted_history,new_user_question=self.user_input)
 
-            # Save the current user input to MySQL
-            self.chat_history_manager.save_interaction(self.user_input, message_type="human")
+            print("-------------------------------------------------------")
+            print("Topic Changed Dict:", topic_changed_dict)
+            print("-------------------------------------------------------")
+
+            # If the topic has changed , new thread should be created or if this is a new conversation
+            if topic_changed_dict["topic_changed"] or topic_changed_dict["new_conversation"]:
+                # Create a new thread in the chat history
+                new_thread=self.chat_history_manager.create_thread(title=topic_changed_dict["new_topic_title"])
+                # Add the current user input to the chat history
+                formatted_history.append(HumanMessage(self.user_input))
+                # Save the current user input to MySQL
+                self.chat_history_manager.save_interaction(message_content=self.user_input, message_type="human", thread_id=new_thread)
+            
+            # no changed in topic existing thread should be used
+            else:
+                # Add the current user input to the chat history
+                formatted_history.append(HumanMessage(self.user_input))
+                print("formatted_history:", formatted_history)
+
+                #getting latest thread
+                latest_thread = self.chat_history_manager.get_latest_thread()
+
+                # Save the current user input to MySQL in the latest thread
+                self.chat_history_manager.save_interaction(message_content=self.user_input, message_type="human",thread_id=latest_thread.id)        
 
             # Rewriting the query based on chat history
             re_written_query = self.rewrite_query(formatted_history)
+
             print("-------------------------------------------------------")
             print("Re-written Query:", re_written_query)
             print("-------------------------------------------------------")
@@ -57,23 +83,34 @@ class mentorMate:
             # Retrieve similar documents using the rewritten query
             pdf_retriver = ChromaRetrevier(db_path="vectorDb", collection_name="PDFCollection")
             new_similarity_docs = pdf_retriver.query_documents(re_written_query)
+
             print("Similarity Docs:", new_similarity_docs)
 
             # Get the bot's response using the updated chat history and new documents
-            print("-------------------------------------------------------")         
+            print("-------------------------------------------------------")      
+
             response = self.generate_response(formatted_history, new_similarity_docs)
 
-            # Add the bot's response to the chat history
-            formatted_history.append(AIMessage(response))
+            if topic_changed_dict["topic_changed"] or topic_changed_dict["new_conversation"]:
+                # Add the bot's response to the chat history
+                formatted_history.append(AIMessage(response))
+                # Save the bot's response to MySQL with the new thread
+                self.chat_history_manager.save_interaction(message_content=response, message_type="ai", thread_id=new_thread)
 
-            # Save the bot's response to MySQL
-            self.chat_history_manager.save_interaction(response, message_type="ai")
+            # no changed in topic existing thread should be used
+            else :
+                # Add the bot's response to the chat history
+                formatted_history.append(AIMessage(response))
+
+                # Save the bot's response to MySQL in the latest thread
+                self.chat_history_manager.save_interaction(message_content=response, message_type="ai",thread_id=latest_thread.id)
 
             print("Chat History after response:", formatted_history)
             print("-------------------------------------------------------")
 
-            # Update the chat history in Redis
+            # Update the chat history in Redis - cache the last 4 interactions
             self.update_chat_history(formatted_history)
+
             print("Chat History updated in Redis:", formatted_history)
             print("-------------------------------------------------------")
             
@@ -163,3 +200,41 @@ class mentorMate:
         #return thr full chat thread
         return self.chat_history_manager.get_chat_thread()
     
+    
+    def is_topic_changed(self,history,new_user_question):
+        #check if the topic has changed of the conversation
+    
+        try:
+            llm = ChatGroq(temperature=0.6, max_tokens=3000, model="Llama3-8b-8192", streaming=True)
+
+            response_schemas = [
+                ResponseSchema(name="topic_changed" , type="boolean" , description="a boolean value indicating if the topic has changed or not."),
+                ResponseSchema(name="new_conversation" , type="boolean" , description="a boolean value indicating if this is a new conversation or not."),
+                ResponseSchema(name="new_topic_title" , type="string" , description="a string value indicating the title of the new topic of the conversation if the topic_changes is True or new_conversation is True. Otherwise, it should be None."),
+                ResponseSchema(name="Summary_topic_title" , type="string" , description="a string value indicating the title of the old topic of the conversation if the topic_changed is True . Otherwise, it should be None.")
+            ]
+
+            output_parser = StructuredOutputParser.from_response_schemas(response_schemas)
+            format_instructions = output_parser.get_format_instructions()
+
+            detect_topic_change_template = """Given a chat history, determine if the topic of the conversation has changed.Do not consider Minor deviation from the topic.if the topic and new user question can be put into one section of biology then treat as topic not changed.You can use the chat history to determine if the topic has changed. If the topic has changed , also create a suitable title for the new topic of the conversation by considering the new user question.Think a bit ahead what might user ask following the new user Question and create a new topic suitable.If the chat history
+                is empty and only, assume this is a new conversation and create suitable title for the new topic of the conversation by think ahead what might user ask following the new user Question. you also need to create a summary topic title which will summarise solely the chat history in the event of a topic changed detected.This summary topic should be descrptive and should be able to summarize the old conversation. Do not provide any python code or any other code to solve the problem. Only provide the response in the format mentioned below.Do not output any reasoning or explanation. only output the requested JSON Object in the response.
+                new user question: {new_user_question}
+                chat history :{chat_history} 
+
+                format instructions: {format_instructions}
+                """
+            
+            prompt = PromptTemplate(
+                template=detect_topic_change_template,
+                input_variables=["chat_history"],
+                partial_variables={"format_instructions": format_instructions}
+            )
+            chain = prompt | llm | output_parser
+            response = chain.invoke({"chat_history": history , "new_user_question": new_user_question})
+            return response
+        except Exception as e:
+            print(f"Topic changed detection error occurred: {e}")
+            logging.error(f"Topic changed detection error occurred: {e}")
+
+            return {"topic_changed": False, "new_conversation": False, "new_topic_title": None, "Summary_topic_title": None}

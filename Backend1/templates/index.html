@@ -32,9 +32,9 @@
     <div class="container">
         <h1 class="mt-5 mb-3 text-center">Mentor-Mate</h1>
 
-        <!-- Input area for user name -->
+        <!-- Input area for user email -->
         <div class="input-group mb-3">
-            <input type="text" id="userName" class="form-control" placeholder="Enter your name..." aria-label="Enter your name" aria-describedby="startButton">
+            <input type="email" id="userEmail" class="form-control" placeholder="Enter your email..." aria-label="Enter your email" aria-describedby="startButton">
             <div class="input-group-append">
                 <button class="btn btn-primary" type="button" id="startButton">Start</button>
             </div>
@@ -63,9 +63,9 @@
     <!-- Script for handling user input and chatbot responses -->
     <script>
         document.getElementById('startButton').addEventListener('click', function() {
-            var userName = document.getElementById('userName').value;
-            if (userName.trim() !== '') {
-                document.getElementById('userName').disabled = true;
+            var userEmail = document.getElementById('userEmail').value;
+            if (userEmail.trim() !== '') {
+                document.getElementById('userEmail').disabled = true;
                 document.getElementById('startButton').disabled = true;
                 document.getElementById('userInput').disabled = false;
                 document.getElementById('sendButton').disabled = false;
@@ -74,7 +74,7 @@
 
         document.getElementById('sendButton').addEventListener('click', function() {
             var userInput = document.getElementById('userInput').value;
-            var userName = document.getElementById('userName').value;
+            var userEmail = document.getElementById('userEmail').value;
             if (userInput.trim() !== '') {
                // var userMessageHtml = '<div class="alert alert-dark mb-2 text-right" role="alert">' + userInput + '</div>';
                 var userMessageHtml = '<div class="d-flex flex-row justify-content-end mb-3">' +
@@ -88,7 +88,7 @@
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: 'message=' + encodeURIComponent(userInput) + '&user_name=' + encodeURIComponent(userName),
+                    body: 'message=' + encodeURIComponent(userInput) + '&user_email=' + encodeURIComponent(userEmail),
                 })
                 .then(response => response.json())
                 .then(data => {
