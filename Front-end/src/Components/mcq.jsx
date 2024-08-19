@@ -44,10 +44,10 @@ function Mcq({ question, options }) {
 
         <CardFooter ml="auto" display="flex" justifyContent="flex-end" gap={2}>
           <Button colorScheme="blue" bg="blue" borderRadius="5px" color="white">
-            confirm
+            Confirm
           </Button>
           <Button colorScheme="green" bg="green" borderRadius="5px" color="white">
-            review
+            Review
           </Button>
         </CardFooter>
       </Card>
