@@ -1,0 +1,25 @@
+.question-directions-container {
+    font-family: Arial, sans-serif;
+    padding: 10px;
+}
+
+.directions-list {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.directions-list li {
+    margin: 5px 0;
+}
+
+.directions-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.directions-table th, .directions-table td {
+    border: 1px solid black;
+    padding: 5px;
+}

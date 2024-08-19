@@ -1,20 +1,14 @@
 import { BrowserRouter, Routes, Link } from "react-router-dom";
-import React, { useState } from 'react';
 import BioMainUnit from "./BioMainUnit";
-import Subject from "./Subject";
 import Navbar from "../Components/Navbar";
+import Mcq from "../Components/mcq";
+import BioPaper2022 from "./bioPaper2022";
 
 function Explore() {
-    const [showSubject, setShowSubject] = useState(false);
-
     return (
         <>
-
-        <Subject/>
-
-        
-         {/* <BioMainUnit/>*/}   
-       
+            
+            <BioPaper2022/>
             
         </>
     );
