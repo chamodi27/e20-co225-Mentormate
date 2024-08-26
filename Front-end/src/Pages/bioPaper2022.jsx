@@ -9,6 +9,8 @@ import q31_3 from '../assets/paper22/q31_3.png';
 import q31_4 from '../assets/paper22/q31_4.png';
 import q31_5 from '../assets/paper22/q31_5.png';
 import q36 from '../assets/paper22/q36.png';
+import { Button, Stack } from '@chakra-ui/react'
+import { ArrowForwardIcon } from '@chakra-ui/icons';
 
 
 function bioPaper2022() {
@@ -634,134 +636,191 @@ is considered (P-S) are given below. Select the answer that gives the correct co
         <br></br>
         <br></br>
         <Mcq
-        question="41. Select the response/responses which indicates/indicale examples tor hve adjacent hierarchial levels of biological organization "
+        question="41. Select the response/responses which indicates/indicale examples tor hve adjacent hierarchial levels of biological organization<br/>
+                        (A) Cellulose, tracheid, xylem, root, plant<br/>
+                        (B) DNA, nucleus, neuron, brain, nervous system<br/>
+                        (C) Nervous system, deer, herd of deer, wild an1mals, dry mixed evergreen forest .<br/>
+                        (D) ATP, mitochondria, eosinophil, blood. heart<br/>
+                        (E) RuBP, chloroplast, mesophyll cell, leaf, plant <br/>"
         options={[
-          { value: "1", label: " (A) Cellulose, tracheid, xylem, root, plant" },
-          { value: "2", label: " (B) DNA, nucleus, neuron, brain, nervous system " },
-          { value: "3", label: " (C) Nervous system, deer, herd of deer, wild an1mals, dry mixed evergreen forest ."},
-          { value: "4", label: " (D) ATP, mitochondria, eosinophil, blood. heart" },
-          { value: "5", label: " (E) RuBP, chloroplast, mesophyll cell, leaf, plant " },
+          { value: "1", label: " (1) " },
+          { value: "2", label: " (2) " },
+          { value: "3", label: " (3) "},
+          { value: "4", label: " (4) " },
+          { value: "5", label: " (5) " },
         ]}
       />
 
 <br></br>
         <br></br>
         <Mcq
-        question="42. Which of the following statemnents rcgarding tracheids is/are corrcct?  "
+        question="42. Which of the following statemnents rcgarding tracheids is/are corrcct?  <br/>
+                      (A) They are found in club mosses and hornworts.<br/>
+                      (B) They are long broad cells with tapering ends. <br/> 
+                      (C) Their secondary walls are thickened with lignin.<br/>
+                      (D) They are involved in conducting water. <br/>
+                      (E) Mitochondria present in the cytoplasm of mature tracheids provide energy for ther functioning.<br/>"
         options={[
-          { value: "1", label: " (A) They are found in club mosses and hornworts." },
-          { value: "2", label: " (B) They are long broad cells with tapering ends. " },
-          { value: "3", label: " (C) Their secondary walls are thickened with lignin."},
-          { value: "4", label: " (D) They are involved in conducting water. " },
-          { value: "5", label: " (E) Mitochondria present in the cytoplasm of mature tracheids provide energy for ther functioning. " },
+          { value: "1", label: " (1) " },
+          { value: "2", label: " (2) " },
+          { value: "3", label: " (3) "},
+          { value: "4", label: " (4) " },
+          { value: "5", label: " (5) " },
         ]}
       />
 
 <br></br>
         <br></br>
         <Mcq
-        question="43. Select the correct statement/statements regarding clotting of blood in man.  "
+        question="43. Select the correct statement/statements regarding clotting of blood in man. <br/>
+                        (A) Fibrinogen is converted to fibrin by thrombin. <br/>
+                        (B) Prothrombrin present in platelets is converted to thrombin. <br/>
+                        (C) Heparin prevents conversion of prothrombin to thrombin. <br/>
+                        (D) Vitamin K is a cloting factor present in blood plasma. <br/>
+                        (E) Platelets become sticky due to agglutinogen present on their surface.<br/>"
         options={[
-          { value: "1", label: " (A) Fibrinogen is converted to fibrin by thrombin. " },
-          { value: "2", label: " (B) Prothrombrin present in platelets is converted to thrombin. " },
-          { value: "3", label: " (C) Heparin prevents conversion of prothrombin to thrombin. "},
-          { value: "4", label: " (D) Vitamin K is a cloting factor present in blood plasma. " },
-          { value: "5", label: " (E) Platelets become sticky due to agglutinogen present on their surface." },
-        ]}
-      />
+                  { value: "1", label: " (1) " },
+                  { value: "2", label: " (2) " },
+                  { value: "3", label: " (3) "},
+                  { value: "4", label: " (4) " },
+                  { value: "5", label: " (5) " },
+                ]}
+              />
 
         <br></br>
         <br></br>
         <Mcq
         question="44. Which of the following combinations is/are correct regarding the main nitrogenous excretory product of the given animal group?<br/>
-                    <Strong>Animal group ,Main nitrogenous excretory product </Strong>"
-        options={[
-          { value: "1", label: " (A) Birds,Uric acid" },
-          { value: "2", label: " (B) Bony fishes ,Ammonia" },
-          { value: "3", label: " (C) Adult amphibians,Ammonia"},
-          { value: "4", label: " (D) Sharks,Urea" },
-          { value: "5", label: " (E) Land snails,Urea" },
-        ]}
+                    <Strong>Animal group ,Main nitrogenous excretory product </Strong><br/>
+                    (A) Birds,Uric acid<br/>
+                    (B) Bony fishes ,Ammonia<br/>
+                    (C) Adult amphibians,Ammonia<br/>
+                    (D) Sharks,Urea<br/>
+                    (E) Land snails,Urea<br/>"
+                    options={[
+                      { value: "1", label: " (1) " },
+                      { value: "2", label: " (2) " },
+                      { value: "3", label: " (3) "},
+                      { value: "4", label: " (4) " },
+                      { value: "5", label: " (5) " },
+                    ]}
       />
 
         <br></br>
         <br></br>
         <Mcq
-        question="45. In the human skeleton "
-        options={[
-          { value: "1", label: " (A) frontal bone contributes to form the cranium and face. " },
-          { value: "2", label: " (B) twelve pairs of ribs form the lateral walls of the thoracic cage" },
-          { value: "3", label: " (C) lumbar curvature of the vertebral column develops at about three months after birth."},
-          { value: "4", label: " (D) special joint between the first metacarpal and a carpal bone permits precision grip of man." },
-          { value: "5", label: " (E) arches of the foot are important in distributing the body weight evenly over the foot only when stationary." },
-        ]}
+        question="45. In the human skeleton <br/>
+                    (A) frontal bone contributes to form the cranium and face.<br/>
+                    (B) twelve pairs of ribs form the lateral walls of the thoracic cage<br/>
+                    (C) lumbar curvature of the vertebral column develops at about three months after birth.<br/>
+                    (D) special joint between the first metacarpal and a carpal bone permits precision grip of man.<br/>
+                    (E) arches of the foot are important in distributing the body weight evenly over the foot only when stationary.<br/>"
+                    options={[
+                      { value: "1", label: " (1) " },
+                      { value: "2", label: " (2) " },
+                      { value: "3", label: " (3) "},
+                      { value: "4", label: " (4) " },
+                      { value: "5", label: " (5) " },
+                    ]}
       />
 
         <br></br>
         <br></br>
         <Mcq
-        question="46. Core of supercoiled prokaryotic chromosome"
-        options={[
-          { value: "1", label: " (A) binds the loops of compacted DNA. " },
-          { value: "2", label: " (B) attaches the chromosome to the membrane. " },
-          { value: "3", label: " (C) facilitates relaxing of entire chromosome during replication"},
-          { value: "4", label: " (D) allows domains to relax independently during transcription. " },
-          { value: "5", label: " (E) guides RNA polymerase to the site of initiation of transcription. " },
-        ]}
+        question="46. Core of supercoiled prokaryotic chromosome<br/>
+                      (A) binds the loops of compacted DNA.<br/>
+                      (B) attaches the chromosome to the membrane.<br/>
+                      (C) facilitates relaxing of entire chromosome during replication<br/>
+                      (D) allows domains to relax independently during transcription.<br/>
+                      (E) guides RNA polymerase to the site of initiation of transcription.<br/>"
+                      options={[
+                        { value: "1", label: " (1) " },
+                        { value: "2", label: " (2) " },
+                        { value: "3", label: " (3) "},
+                        { value: "4", label: " (4) " },
+                        { value: "5", label: " (5) " },
+                      ]}
       />
 
         <br></br>
         <br></br>
         <Mcq
-        question="47. Which of the following responses indicates/indicate in correct order, the plants that are found in three ecosystems located in increasing altitudes of Sri Lanka? "
-        options={[
-          { value: "1", label: " (A) <i>Salicornia sp.</i>, Heerassa, <i>Themeda </i>" },
-          { value: "2", label: " (B) Kadol, Weera, Hora" },
-          { value: "3", label: " (C) Katu ikili, Gal weralu, Ranawara "},
-          { value: "4", label: " (D) Palu, Hal, Tussock grass" },
-          { value: "5", label: " (E) Karan koku, Naa, Gini andara" },
-        ]}
+        question="47. Which of the following responses indicates/indicate in correct order, the plants that are found in three ecosystems located in increasing altitudes of Sri Lanka?<br/>
+                          (A) <i>Salicornia sp.</i>, Heerassa, <i>Themeda </i><br/>
+                          (B) Kadol, Weera, Hora<br/>
+                          (C) Katu ikili, Gal weralu, Ranawara<br/>
+                          (D) Palu, Hal, Tussock grass<br/>
+                          (E) Karan koku, Naa, Gini andara<br/> "
+                          options={[
+                            { value: "1", label: " (1) " },
+                            { value: "2", label: " (2) " },
+                            { value: "3", label: " (3) "},
+                            { value: "4", label: " (4) " },
+                            { value: "5", label: " (5) " },
+                          ]}
       />
 
         <br></br>
         <br></br>
         <Mcq
-        question="48. Which of the following statements regarding the use of microorganisms in industries is/are correct?"
-        options={[
-          { value: "1", label: " (A) Invertase is produced using <i>Saccharomyces cerevisiae. </i>" },
-          { value: "2", label: " (B) <i>Thiobacillus ferrooxidans</i> is used in the extraction of copper from lower grade ores contauning sulphur and iron. " },
-          { value: "3", label: " (C) Riboflavin is produced through metabolic activity of <i>Acetobacter sp. </i>"},
-          { value: "4", label: " (D) Human growth hormone is produced using genetically engineered <i>Escherichia coll.</i>" },
-          { value: "5", label: " (E) Citric acid is produced using <i>Gluconobacter sp</i>" },
-        ]}
+        question="48. Which of the following statements regarding the use of microorganisms in industries is/are correct?<br/>
+                        (A) Invertase is produced using <i>Saccharomyces cerevisiae. </i><br/>
+                        (B) <i>Thiobacillus ferrooxidans</i> is used in the extraction of copper from lower grade ores contauning sulphur and iron.<br/>
+                        (C) Riboflavin is produced through metabolic activity of <i>Acetobacter sp. </i><br/>
+                        (D) Human growth hormone is produced using genetically engineered <i>Escherichia coll.</i><br/>
+                        (E) Citric acid is produced using <i>Gluconobacter sp</i><br/>  "
+                        options={[
+                          { value: "1", label: " (1) " },
+                          { value: "2", label: " (2) " },
+                          { value: "3", label: " (3) "},
+                          { value: "4", label: " (4) " },
+                          { value: "5", label: " (5) " },
+                        ]}
       />
 
         <br></br>
         <br></br>
         <Mcq
-        question="49. Which of the following bacterial species causes/cause both water borne and food borne diseases?"
-        options={[
-          { value: "1", label: " (A) <i>Salmonclla sp.</i>" },
-          { value: "2", label: " (B) <i>Staphylococcus sp</i>" },
-          { value: "3", label: " (C) <i>Vibrio sp.</i> "},
-          { value: "4", label: " (D) <i>Shigella sp.</i> " },
-          { value: "5", label: " (E) <i>Clostridium sp.</i> " },
-        ]}
+        question="49. Which of the following bacterial species causes/cause both water borne and food borne diseases?<br/>
+                    (A) <i>Salmonclla sp.</i><br/>
+                    (B) <i>Staphylococcus sp</i><br/>
+                    (C) <i>Vibrio sp.</i> <br/>
+                    (D) <i>Shigella sp.</i><br/>
+                    (E) <i>Clostridium sp.</i> <br/>"
+                    options={[
+                      { value: "1", label: " (1) " },
+                      { value: "2", label: " (2) " },
+                      { value: "3", label: " (3) "},
+                      { value: "4", label: " (4) " },
+                      { value: "5", label: " (5) " },
+                    ]}
       />
 
         <br></br>
         <br></br>
         <Mcq
-        question="50. Which of the following should be caried oul monthly when maintaining an aquarium?"
-        options={[
-          { value: "1", label: " (A) Cleaning of air diffuse stoncs" },
-          { value: "2", label: " (B) Pruning of aquarium plants" },
-          { value: "3", label: " (C) Scraping algace grown on glass surface"},
-          { value: "4", label: " (D) Removing organic debris accumulated under filter plates" },
-          { value: "5", label: " (E) Removing diseased fish" },
-        ]}
+        question="50. Which of the following should be caried oul monthly when maintaining an aquarium?<br/>
+                        (A) Cleaning of air diffuse stoncs
+                        (B) Pruning of aquarium plants
+                        (C) Scraping algace grown on glass surface
+                        (D) Removing organic debris accumulated under filter plates
+                        (E) Removing diseased fish  "
+                        options={[
+                          { value: "1", label: " (1) " },
+                          { value: "2", label: " (2) " },
+                          { value: "3", label: " (3) "},
+                          { value: "4", label: " (4) " },
+                          { value: "5", label: " (5) " },
+                        ]}
       />
-
+      <br></br>
+      <br></br>
+      
+      <Stack direction='row' spacing={4}>
+        <Button rightIcon={<ArrowForwardIcon />} colorScheme='teal' variant='outline'>
+          Submit Biology first part 
+        </Button>
+      </Stack>
       </ChakraProvider>
     </>
   )
