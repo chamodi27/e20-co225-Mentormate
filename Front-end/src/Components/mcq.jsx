@@ -1,16 +1,22 @@
-import React from 'react';
-import Navbar from './Navbar';
+import React, { useState } from 'react';
 import { Card, CardHeader, CardBody, Heading, Text, CardFooter, Button, Box, Radio, RadioGroup, Stack, HStack } from '@chakra-ui/react';
+import { CheckIcon } from '@chakra-ui/icons';  // Import Chakra UI's CheckIcon
 
 function Mcq({ question, options }) {
+  const [isConfirmed, setIsConfirmed] = useState(false);
+
+  const handleConfirmClick = () => {
+    setIsConfirmed(prevState => !prevState);
+  };
+
   return (
     <>
       <Card border="1px solid black" borderColor="black" bg="gray.400">
         <CardHeader>
           <Heading size="md" borderBottom="1px solid black" pb={2}>
-          {typeof question === 'string' && question.includes('<')
-            ? <Text fontSize="lg" mb={4} dangerouslySetInnerHTML={{ __html: question }} />
-            : <Text fontSize="lg" mb={4}>{question}</Text>}
+            {typeof question === 'string' && question.includes('<')
+              ? <Text fontSize="lg" mb={4} dangerouslySetInnerHTML={{ __html: question }} />
+              : <Text fontSize="lg" mb={4}>{question}</Text>}
           </Heading>
         </CardHeader>
 
@@ -33,8 +39,8 @@ function Mcq({ question, options }) {
                       }}
                     />
                     {typeof option.label === 'string' && option.label.includes('<')
-                    ? <span dangerouslySetInnerHTML={{ __html: option.label }} />
-                    : <Box>{option.label}</Box>}
+                      ? <span dangerouslySetInnerHTML={{ __html: option.label }} />
+                      : <Box>{option.label}</Box>}
                   </HStack>
                 ))}
               </Stack>
@@ -44,7 +50,7 @@ function Mcq({ question, options }) {
 
         <CardFooter ml="auto" display="flex" justifyContent="flex-end" gap={2}>
           <Button colorScheme="blue" bg="blue" borderRadius="5px" color="white">
-            Confirm
+            confirm
           </Button>
           <Button colorScheme="green" bg="green" borderRadius="5px" color="white">
             Review
