@@ -8,7 +8,7 @@ import Explore from './Pages/Explore';
 import Account from './Pages/Account';
 import Home from './Pages/Home';
 import Signup from './Pages/Signup';
-import Subject from './Pages/Subject';
+
 
 function App() {
   
@@ -37,10 +37,9 @@ function App() {
         <Route path="/account" element={<Account/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/signup" element={<Signup/>}/>
-     </Routes>
+     </Routes> 
      
-    {/* For now I added this page here  */}
-     {/* <Subject></Subject> */}
+    
      
   
     

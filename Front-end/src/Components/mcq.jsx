@@ -49,17 +49,11 @@ function Mcq({ question, options }) {
         </CardBody>
 
         <CardFooter ml="auto" display="flex" justifyContent="flex-end" gap={2}>
-          <Button 
-            colorScheme={isConfirmed ? "blue" : "red"} // Changes color based on state
-            bg={isConfirmed ? "blue.500" : "red.500"} 
-            borderRadius="5px" 
-            color="white" 
-            onClick={handleConfirmClick}
-          >
-            {isConfirmed ? <CheckIcon /> : 'confirm'}
+          <Button colorScheme="blue" bg="blue" borderRadius="5px" color="white">
+            confirm
           </Button>
           <Button colorScheme="green" bg="green" borderRadius="5px" color="white">
-            review
+            Review
           </Button>
         </CardFooter>
       </Card>

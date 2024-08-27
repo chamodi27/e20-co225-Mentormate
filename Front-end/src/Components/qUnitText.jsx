@@ -27,7 +27,7 @@ function qUnitText({ question }) {
             Submit
           </Button>
           <Button colorScheme="green" bg="green" borderRadius="5px" color="white">
-            review
+            Review
           </Button>
         </CardFooter>
       </Card>
