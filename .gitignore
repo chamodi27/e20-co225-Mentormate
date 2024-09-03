@@ -2,3 +2,4 @@ Backend1/__pycache__/
 Backend1/venv/
 Backend1/.env
 tests/__pycache__/
+.vscode

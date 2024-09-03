@@ -102,8 +102,10 @@ class mentorMate:
                 # Add the bot's response to the chat history
                 formatted_history.append(AIMessage(response))
 
+                latest_thread_ai = self.chat_history_manager.get_latest_thread()
+
                 # Save the bot's response to MySQL in the latest thread
-                self.chat_history_manager.save_interaction(message_content=response, message_type="ai",thread_id=latest_thread.id)
+                self.chat_history_manager.save_interaction(message_content=response, message_type="ai",thread_id=latest_thread_ai.id)
 
             print("Chat History after response:", formatted_history)
             print("-------------------------------------------------------")
@@ -150,7 +152,7 @@ class mentorMate:
 
     def generate_response(self, history, new_similarity_docs):
 
-        llm = ChatGroq(temperature=0.2, max_tokens=100, model="Llama3-8b-8192", streaming=True)
+        llm = ChatGroq(temperature=0.2, max_tokens=3000, model="Llama3-8b-8192", streaming=True)
         system = """
             your are a helpful personal tutor. Your task is to answer questions about biology solely based on the content provided.
             Your scope is limited to the content provided. You're answering to an advanced level high school student.
