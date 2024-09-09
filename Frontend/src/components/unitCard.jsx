@@ -1,5 +1,5 @@
 import React from 'react';
-import '@radix-ui/themes/styles.css';
+import '@radix-ui/themes/styles.css'; 
 import { Box, Card, Inset, Text, Strong } from '@radix-ui/themes';
 
 
@@ -34,5 +34,5 @@ function UnitCard({ imageSrc, text, link }) {
     );
 }
 
-export default UnitCard;
+export default UnitCard; 
 
