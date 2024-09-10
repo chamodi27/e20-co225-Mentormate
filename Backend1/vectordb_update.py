@@ -11,7 +11,7 @@ vectorDB_client_pdf = ChromaDBManager(db_path="Backend1/vectorDb",collection_nam
 #vectorDB_client_pdf.add_data_to_vectorDb('Backend1/testData/chapter2.pdf')
 #print("2 done")
 
-vectorDB_client_pdf.add_data_to_vectorDb('Backend1/testData/BioResoBookGr12.pdf')
+vectorDB_client_pdf.add_data_to_vectorDb('Backend1/testData/BioResFull.pdf')
 print("Full book done")
 embeddings_count =vectorDB_client_pdf.collection.count()
 print("embeddings count",embeddings_count)

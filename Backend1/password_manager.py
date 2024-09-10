@@ -1,4 +1,4 @@
-import bcrypt
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class PasswordManager:
     def __init__(self):
@@ -6,17 +6,14 @@ class PasswordManager:
     
     def hash_password(self, password: str) -> str:
         """
-        Hash the password using bcrypt.
+        Hash the password using Werkzeug.
         
         :param password: The plain text password to hash.
         :return: The hashed password.
         """
-        # Convert the password to bytes
-        password_bytes = password.encode('utf-8')
-        # Generate the hash
-        hashed_password = bcrypt.hashpw(password_bytes, bcrypt.gensalt())
-        # Convert bytes back to string for easier storage and comparison
-        return hashed_password.decode('utf-8')
+        # Generate the hash using Werkzeug
+        hashed_password = generate_password_hash(password)
+        return hashed_password
     
     def check_password(self, password: str, hashed_password: str) -> bool:
         """
@@ -26,9 +23,5 @@ class PasswordManager:
         :param hashed_password: The hashed password to compare against.
         :return: True if the password matches, False otherwise.
         """
-        # Convert the password to bytes
-        password_bytes = password.encode('utf-8')
-        # Convert the hashed password to bytes
-        hashed_password_bytes = hashed_password.encode('utf-8')
         # Check if the password matches the hashed password
-        return bcrypt.checkpw(password_bytes, hashed_password_bytes)
+        return check_password_hash(hashed_password, password)
