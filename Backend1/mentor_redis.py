@@ -82,6 +82,7 @@ class mentorMate:
 
             # Retrieve similar documents using the rewritten query
             pdf_retriver = ChromaRetrevier(db_path="vectorDb", collection_name="PDFCollection")
+            print(pdf_retriver.collection.count())
             new_similarity_docs = pdf_retriver.query_documents(re_written_query)
 
             print("Similarity Docs:", new_similarity_docs)
