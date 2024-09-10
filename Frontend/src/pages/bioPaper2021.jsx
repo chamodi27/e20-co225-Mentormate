@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import Mcq from "../Components/mcq";
-import Navbar from '../Components/Navbar';
-import InstructioncardBio from '../Components/instructioncardBio';
+import Mcq from "../components/mcq";
+import Navbar from '../components/Navbar';
+import InstructioncardBio from '../components/instructioncardBio';
 import { ChakraProvider } from '@chakra-ui/react';
 // import q31_1 from '../assets/paper22/q31_1.png';
 // import q31_2 from '../assets/paper22/q31_2.png';
