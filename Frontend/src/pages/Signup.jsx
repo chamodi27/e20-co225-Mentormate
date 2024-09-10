@@ -39,14 +39,15 @@ const SignUp = () => {
 
   return (
   
-   <Box display='felx' alignContent='center' bgGradient={'linear(to-r, teal.400, blue.500)'} minH={'100vh'} py="20">
+   <Box display='felx' alignContent='center' bgGradient="linear(to-r, #858e96, #2b7ccd)" minH={'100vh'} py="20">
       {error && (<Alert status="error" mb="4" textAlign='center'variant='top-accent'flexDirection='column'alignItems='center'justifyContent='center'>
                    <AlertIcon />
                     {error}
                 </Alert>)
       }
-    <Box w="90%" maxW='md' mx="auto"  p='8' bgColor={'white'} borderRadius={20}>
-      <Heading as="h1" size="xl" textAlign="center" mb="6" >Sign Up</Heading>
+      <Heading as="h1" size="2xl" textAlign="center" mb="6" >Sign Up | MentorMate</Heading>
+    <Box w="90%" maxW='md' mx="auto"  p='8' bgColor="gray.200" borderRadius={20}>
+      
       <form onSubmit={handleSubmit(onSubmit)}>
         <VStack spacing="4">
           <FormControl isInvalid={errors.email}>

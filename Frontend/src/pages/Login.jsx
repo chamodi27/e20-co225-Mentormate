@@ -52,20 +52,22 @@ const Login = () => {
       minH={'100vh'}
       align={'center'}
       justify={'center'}
-      bgGradient="linear(to-r, teal.400, blue.500)"
+      bgGradient="linear(to-r, #858e96, #2b7ccd)"
     >
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
-          <Heading fontSize={'4xl'} color={'white'}>
-            Log in to your account
+          <Heading fontSize={'4xl'} color="gray.700">
+            Login | MentorMate
           </Heading>
         </Stack>
         <Box
+          
           rounded={'lg'}
-          bg={useColorModeValue('white', 'gray.800')}
+          bg={useColorModeValue('gray.200', 'gray.800')}
           boxShadow={'lg'}
           p={8}
         >
+
           <Stack spacing={4}>
             <form onSubmit={handleSubmit}>
               <FormControl id="email">
@@ -74,7 +76,7 @@ const Login = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  borderColor={'gray.400'}
+                  borderColor={'gray.600'}
                 />
               </FormControl>
               <FormControl id="password">
@@ -83,7 +85,7 @@ const Login = () => {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  borderColor={'gray.400'}
+                  borderColor={'gray.600'}
                 />
               </FormControl>
               {error && <Box color="red.500">{error}</Box>}
