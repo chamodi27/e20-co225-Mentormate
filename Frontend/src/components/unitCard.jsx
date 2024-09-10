@@ -1,6 +1,5 @@
 import React from 'react';
-import '@radix-ui/themes/styles.css'; 
-import { Box, Card, Inset, Text, Strong } from '@radix-ui/themes';
+import { Box, Image, Text, Heading, Card, CardBody, ChakraProvider } from '@chakra-ui/react';
 
 
 function UnitCard({ imageSrc, text, link }) {
@@ -11,28 +10,27 @@ function UnitCard({ imageSrc, text, link }) {
     };
 
     return (
-        <Box maxWidth="240px" onClick={handleClick} style={{ cursor: 'pointer' }}>
-        <Card size="2">
-            <Inset clip="padding-box" side="top" pb="current" >
-            <img className='card-custom1'
-                src={imageSrc}
-                alt="Bold typography"
-                style={{
-                display: 'block',
-                objectFit: 'cover',
-                width: '100%',
-                height: 140,
-                backgroundColor: 'var(--gray-5)',
-                }}
-            />
-            </Inset>
-            <Text as="p" size="3" className='text-center card-body-custom1 card-text1'>
-            <Strong>{text}</Strong>
-            </Text>
-        </Card>
+        <ChakraProvider>
+        <Box maxW="240px" onClick={handleClick} cursor="pointer" >
+            <Card>
+                <Image
+                    src={imageSrc}
+                    alt="Card image"
+                    objectFit="cover"
+                    w="100%"
+                    h="140px"
+                    
+                    backgroundColor="gray.200"
+                />
+                <CardBody bg="gray.300" p={4}>
+                    <Text textAlign="center" fontSize="lg" fontWeight="bold">
+                        {text}
+                    </Text>
+                </CardBody>
+            </Card>
         </Box>
+        </ChakraProvider>
     );
 }
 
-export default UnitCard; 
-
+export default UnitCard;
