@@ -1,11 +1,11 @@
 import React from 'react';
 import { Box, Button, Heading, Flex, Text } from '@chakra-ui/react';
 import Navbar from '../components/Navbar'; // Assuming you still want to keep the Navbar
-
+import { useNavigate } from 'react-router-dom';
 
 function Explore() {
 
-  //const navigate = useNavigate();  //Initialize the navigate function
+  const navigate = useNavigate();  //Initialize the navigate function
 
 
   return (
@@ -52,6 +52,7 @@ function Explore() {
               colorScheme="blackAlpha" 
               size="lg" 
               variant="solid"
+              onClick={() => navigate('/explore/selectmode/biology/biomainunit')}
               _hover={{ transform: 'scale(1.05)', transition: 'all .3s' }}
             >
               Start Now
