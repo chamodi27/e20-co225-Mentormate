@@ -1,9 +1,11 @@
 import React from 'react'
 import { ChakraProvider } from '@chakra-ui/react';
-import QUnitText from "../Components/qUnitText"
-import Navbar from '../Components/Navbar';
+import QUnitText from "../components/qUnitText"
+import Navbar from '../components/Navbar';
+import { useNavigate } from 'react-router-dom';
 
-function bioUnit1() {
+function BioUnit1() {
+  const navigate = useNavigate();
   return (
     <>
     <Navbar/>
@@ -636,4 +638,4 @@ function bioUnit1() {
   )
 }
 
-export default bioUnit1
+export default BioUnit1
