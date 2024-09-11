@@ -39,7 +39,7 @@ function Explore() {
             textAlign="center"
           >
             <Heading as="h2" size="lg" color="gray.700" mb={4}>
-              Check Your Knowledge
+              Test Your Knowledge
             </Heading>
             <Text fontSize="lg" color="gray.700" mb={6}>
               by answering model questions
