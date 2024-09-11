@@ -3,3 +3,5 @@ Backend1/venv/
 Backend1/.env
 tests/__pycache__/
 .vscode
+Backend1/db/__pycache__/
+Backend1/services/__pycache__/
