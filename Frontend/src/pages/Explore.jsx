@@ -4,6 +4,10 @@ import Navbar from '../components/Navbar'; // Assuming you still want to keep th
 
 
 function Explore() {
+
+  //const navigate = useNavigate();  //Initialize the navigate function
+
+
   return (
     <>
       <Navbar className="navbar-sub" />
@@ -73,7 +77,7 @@ function Explore() {
               colorScheme="blackAlpha" 
               size="lg" 
               variant="solid"
-              onClick={() => navigate('/chat')}
+              onClick={() => navigate('/login')}
               _hover={{ transform: 'scale(1.05)', transition: 'all .3s' }}
             >
               Ask Now
