@@ -13,7 +13,7 @@ import { Button, Stack,Text,Box } from '@chakra-ui/react'
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 
 
-function bioPaper2021() {
+function BioPaper2021() {
 
   const [isLocked, setIsLocked] = useState(false);
   const [userAnswers, setUserAnswers] = useState({});
@@ -1053,4 +1053,4 @@ function bioPaper2021() {
   )
 }
 
-export default bioPaper2021
+export default BioPaper2021

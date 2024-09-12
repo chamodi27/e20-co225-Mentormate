@@ -7,8 +7,8 @@ function SubjectCardChem() {
     <Box 
       borderWidth="2px"
       borderRadius="lg"
-      borderColor="blue.700"
-      boxShadow="lg"
+      borderColor="gray.400"
+      boxShadow="2xl"
       padding="20px"
       margin="10px"
       textAlign="center"
