@@ -11,7 +11,6 @@ import BioUnit2 from './pages/BioUnit2';
 import BioUnit3 from './pages/BioUnit3';
 import BioUnit4 from './pages/BioUnit4';
 import BioUnit5 from './pages/BioUnit5';
-import BioUnit6 from './pages/BioUnit6';
 import BioUnit7 from './pages/BioUnit7';
 import BioUnit8 from './pages/BioUnit8';
 import BioUnit9 from './pages/BioUnit9';
