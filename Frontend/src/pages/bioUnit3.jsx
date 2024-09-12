@@ -1,9 +1,9 @@
 import React from 'react'
 import { ChakraProvider } from '@chakra-ui/react';
-import QUnitText from "../Components/qUnitText"
-import Navbar from '../Components/Navbar';
+import QUnitText from "../components/qUnitText"
+import Navbar from '../components/Navbar';
 
-function bioUnit3() {
+function BioUnit3() {
   return (
     <>
     <Navbar/>
@@ -592,4 +592,4 @@ function bioUnit3() {
   )
 }
 
-export default bioUnit3
+export default BioUnit3

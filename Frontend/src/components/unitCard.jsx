@@ -11,7 +11,7 @@ function UnitCard({ imageSrc, text, link }) {
 
     return (
         <ChakraProvider>
-        <Box maxW="240px" onClick={handleClick} cursor="pointer" >
+        <Box maxW="240px" onClick={handleClick} cursor="pointer" boxShadow="2xl">
             <Card>
                 <Image
                     src={imageSrc}
@@ -20,7 +20,7 @@ function UnitCard({ imageSrc, text, link }) {
                     w="100%"
                     h="140px"
                     
-                    backgroundColor="gray.200"
+                    backgroundColor="gray.4200"
                 />
                 <CardBody bg="gray.300" p={4}>
                     <Text textAlign="center" fontSize="lg" fontWeight="bold">

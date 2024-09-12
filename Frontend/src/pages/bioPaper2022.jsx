@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Mcq from "../components/mcq";
 import Navbar from '../components/Navbar';
-import InstructioncardBio from '../Components/instructioncardBio';
+import InstructioncardBio from '../components/instructioncardBio';
 import { ChakraProvider } from '@chakra-ui/react';
 import q31_1 from '../assets/paper22/q31_1.png';
 import q31_2 from '../assets/paper22/q31_2.png';
@@ -14,7 +14,7 @@ import { ArrowForwardIcon } from '@chakra-ui/icons';
 
 
 
-function bioPaper2022() {
+function BioPaper2022() {
 
   const [isLocked, setIsLocked] = useState(false);
   const [userAnswers, setUserAnswers] = useState({});
@@ -1156,4 +1156,4 @@ is considered (P-S) are given below. Select the answer that gives the correct co
   );
 }
 
-export default bioPaper2022;
+export default BioPaper2022;

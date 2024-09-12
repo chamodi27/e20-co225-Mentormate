@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Mcq from "../components/mcq";
 import Navbar from '../components/Navbar';
-import InstructioncardBio from '../Components/instructioncardBio';
+import InstructioncardBio from '../components/instructioncardBio';
 import { ChakraProvider } from '@chakra-ui/react';
 // import q31_1 from '../assets/paper22/q31_1.png';
 // import q31_2 from '../assets/paper22/q31_2.png';
@@ -13,7 +13,7 @@ import { Button, Stack,Text,Box } from '@chakra-ui/react'
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 
 
-function bioPaper2021() {
+function BioPaper2020() {
 
   const [isLocked, setIsLocked] = useState(false);
   const [userAnswers, setUserAnswers] = useState({});
@@ -1053,4 +1053,4 @@ function bioPaper2021() {
   )
 }
 
-export default bioPaper2021
+export default BioPaper2020;

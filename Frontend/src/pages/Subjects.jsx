@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import Navbar from '../components/Navbar';
 import SubCardBio from "../components/SubCardBio";
@@ -20,23 +20,27 @@ function Subject() {
       <Navbar className="navbar-sub" />
       <Box 
         
-        minHeight="100vh" // Ensure the background covers the entire viewport
-        bgGradient="linear(to-r, #858e96, #2b7ccd)" // Gradient background
-        paddingTop="70px"
+        minHeight="100vh"// Ensure the background covers the entire viewport
+        bg='gray.400'
+        //bgGradient="linear(to-r, #858e96, #2b7ccd)" // Gradient background
+        paddingTop="80px"
+        
         
         >
         {/* Main Header */}
         <Heading 
           as="h1" 
-          size="2xl" 
-          color="#074c91" 
-          position="fixed" 
+          fontSize={{ base: "3xl", md: "5xl", lg: "6xl" }} 
+          color="gray.700" 
+          textShadow="2px 2px 8px rgba(0, 0, 0, 0.5)"
+          letterSpacing="widest" 
           top="70px" 
-          left="20px" 
-          zIndex="10" 
+          textAlign="center"
+          textTransform="capitalize"
           fontFamily="Poppins, sans-serif"
+          fontWeight="bold"
         >
-          Subjects
+          SUBJECTS
         </Heading>
 
         {/* Card Container */}
