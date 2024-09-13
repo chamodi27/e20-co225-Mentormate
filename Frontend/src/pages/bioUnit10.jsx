@@ -8,7 +8,7 @@ function BioUnit10() {
     <>
     <Navbar/>
     <br/><br/>
-    <ChakraProvider>
+    <br/>
         <QUnitText question="1. "/>
         <br/>
         <QUnitText question="2. "/>
@@ -626,12 +626,6 @@ function BioUnit10() {
         <QUnitText question="299. "/>
         <br/>
         <QUnitText question="300. "/>
-
-
-        
-
-
-    </ChakraProvider>
     </>
   )
 }

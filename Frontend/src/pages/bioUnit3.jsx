@@ -8,7 +8,7 @@ function BioUnit3() {
     <>
     <Navbar/>
     <br/><br/>
-    <ChakraProvider>
+    <br/>
         <QUnitText question="1. When did Earth and other planets form?"/>
         <br/>
         <QUnitText question="2. What gases made up the early atmosphere?"/>
@@ -587,7 +587,6 @@ function BioUnit3() {
         <br/>
         <QUnitText question="280. Can you give some examples?"/>
 
-    </ChakraProvider>
     </>
   )
 }

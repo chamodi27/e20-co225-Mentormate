@@ -8,7 +8,7 @@ function BioUnit8() {
     <>
     <Navbar/>
     <br/><br/>
-    <ChakraProvider>
+    <br/>
         <QUnitText question="1. What is environment?"/>
         <br/>
         <QUnitText question="2. What is environmental biology?"/>
@@ -506,8 +506,7 @@ function BioUnit8() {
         <QUnitText question="249. What's the purpose of the FFPO?"/>
         <br/>
         <QUnitText question="250. What does the FFPO cover?"/>
-        
-    </ChakraProvider>
+
     </>
   )
 }

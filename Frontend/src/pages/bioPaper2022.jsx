@@ -68,8 +68,7 @@ function BioPaper2022() {
   return (
     <>
     <Navbar/>
-    <ChakraProvider>
-        
+        <br></br>
         <br></br>
         <br></br>
         <Mcq
@@ -1125,7 +1124,7 @@ is considered (P-S) are given below. Select the answer that gives the correct co
           >
             Submit Biology First Part
           </Button>
-          
+          <br></br>
           
         </Stack>
 
@@ -1151,7 +1150,6 @@ is considered (P-S) are given below. Select the answer that gives the correct co
           
         </Box>
         )}
-      </ChakraProvider>
     </>
   );
 }
