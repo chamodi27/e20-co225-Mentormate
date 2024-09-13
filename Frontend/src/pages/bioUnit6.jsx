@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider,Text } from '@chakra-ui/react';
 import QUnitText from "../components/qUnitText"
 import Navbar from '../components/Navbar';
 
@@ -8,7 +8,7 @@ function BioUnit6() {
     <>
     <Navbar/>
     <br/><br/>
-    <ChakraProvider>
+    <br/>
         <QUnitText question="1. Who is considered the father of modern genetics?"/>
         <br/>
         <QUnitText question="2. What organism did Mendel use for his experiments? "/>
@@ -572,7 +572,6 @@ function BioUnit6() {
         <QUnitText question="279. What is inbreeding in the context of artificial breeding, and what effect does it have?"/>
         <br/>
         <QUnitText question="280. What are negative correlated responses in artificial breeding?"/>
-    </ChakraProvider>
     </>
   )
 }
