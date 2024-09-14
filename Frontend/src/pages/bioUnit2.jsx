@@ -8,7 +8,8 @@ function BioUnit2() {
     <>
     <Navbar/>
     <br/><br/>
-    <ChakraProvider>
+    <br/>
+    
         <QUnitText question="1. How many elements are essential for life on Earth?"/>
         <br/>
         <QUnitText question="2. What percentage of the human body is made up of the four main elements?"/>
@@ -608,7 +609,7 @@ function BioUnit2() {
         <QUnitText question="290. How is glycerol utilized?"/>
         <br/>
  
-    </ChakraProvider>
+    
     </>
   )
 }

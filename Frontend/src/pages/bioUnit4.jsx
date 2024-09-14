@@ -8,7 +8,7 @@ function BioUnit4() {
     <>
     <Navbar/>
     <br/><br/>
-    <ChakraProvider>
+    <br/>
         <QUnitText question="1. What is a plant tissue?"/>
         <br/>
         <QUnitText question="2. What are meristems in plants?"/>
@@ -626,12 +626,6 @@ function BioUnit4() {
         <QUnitText question="299. How can plant defenses be categorized?"/>
         <br/>
         <QUnitText question="300. Give examples of induced enzymes produced by plants for defense."/>
-
-
-        
-
-
-    </ChakraProvider>
     </>
   )
 }

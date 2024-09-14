@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider,Text } from '@chakra-ui/react';
 import QUnitText from "../components/qUnitText"
 import Navbar from '../components/Navbar';
 
@@ -8,7 +8,7 @@ function BioUnit5() {
     <>
     <Navbar/>
     <br/><br/>
-    <ChakraProvider>
+    <br/>
         <QUnitText question="1. What are the four major types of animal tissues?"/>
         <br/>
         <QUnitText question="2. How are epithelial tissues classified? "/>
@@ -1372,10 +1372,7 @@ function BioUnit5() {
         <QUnitText question="699. What are the three main types of joints in the human body?"/>
         <br/>
         <QUnitText question="700. What is the primary function of skeletal muscle?"/>
-       
 
-
-    </ChakraProvider>
     </>
   )
 }

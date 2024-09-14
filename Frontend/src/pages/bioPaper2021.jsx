@@ -66,8 +66,7 @@ function BioPaper2021() {
   return (
     <>
     <Navbar/>
-    <ChakraProvider>
-        
+        <br></br>
         <br></br>
         <br></br>
         <Mcq
@@ -1022,7 +1021,7 @@ function BioPaper2021() {
           >
             Submit Biology First Part
           </Button>
-          
+          <br></br>
           
         </Stack>
 
@@ -1048,7 +1047,6 @@ function BioPaper2021() {
           
         </Box>
         )}
-      </ChakraProvider>
     </>
   )
 }
