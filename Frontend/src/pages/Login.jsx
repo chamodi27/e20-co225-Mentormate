@@ -52,18 +52,18 @@ const Login = () => {
       minH={'100vh'}
       align={'center'}
       justify={'center'}
-      bgGradient="linear(to-r, #858e96, #2b7ccd)"
+      bg="blue.700"
     >
       <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
         <Stack align={'center'}>
-          <Heading fontSize={'4xl'} color="gray.700">
+          <Heading fontSize={'4xl'} color="gray.300" fontWeight="bold" textShadow="4px 4px 10px rgba(0, 0, 0, 0.8)">
             Login | MentorMate
           </Heading>
         </Stack>
         <Box
           
           rounded={'lg'}
-          bg={useColorModeValue('gray.200', 'gray.800')}
+          bg={useColorModeValue('gray.300', 'gray.800')}
           boxShadow={'lg'}
           p={8}
         >
@@ -91,7 +91,7 @@ const Login = () => {
               {error && <Box color="red.500">{error}</Box>}
               <Stack spacing={10}>
                 <Button
-                  bg={'blue.400'}
+                  bg={'blue.500'}
                   color={'white'}
                   _hover={{
                     bg: 'blue.500',

@@ -1,14 +1,14 @@
 import React from 'react'
 import { ChakraProvider } from '@chakra-ui/react';
-import QUnitText from "../Components/qUnitText"
-import Navbar from '../Components/Navbar';
+import QUnitText from "../components/qUnitText"
+import Navbar from '../components/Navbar';
 
-function bioUnit4() {
+function BioUnit4() {
   return (
     <>
     <Navbar/>
     <br/><br/>
-    <ChakraProvider>
+    <br/>
         <QUnitText question="1. What is a plant tissue?"/>
         <br/>
         <QUnitText question="2. What are meristems in plants?"/>
@@ -626,14 +626,8 @@ function bioUnit4() {
         <QUnitText question="299. How can plant defenses be categorized?"/>
         <br/>
         <QUnitText question="300. Give examples of induced enzymes produced by plants for defense."/>
-
-
-        
-
-
-    </ChakraProvider>
     </>
   )
 }
 
-export default bioUnit4
+export default BioUnit4
