@@ -1,14 +1,14 @@
 import React from 'react'
 import { ChakraProvider } from '@chakra-ui/react';
-import QUnitText from "../Components/qUnitText"
-import Navbar from '../Components/Navbar';
+import QUnitText from "../components/qUnitText"
+import Navbar from '../components/Navbar';
 
-function bioUnit3() {
+function BioUnit3() {
   return (
     <>
     <Navbar/>
     <br/><br/>
-    <ChakraProvider>
+    <br/>
         <QUnitText question="1. When did Earth and other planets form?"/>
         <br/>
         <QUnitText question="2. What gases made up the early atmosphere?"/>
@@ -587,9 +587,8 @@ function bioUnit3() {
         <br/>
         <QUnitText question="280. Can you give some examples?"/>
 
-    </ChakraProvider>
     </>
   )
 }
 
-export default bioUnit3
+export default BioUnit3

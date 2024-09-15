@@ -1,14 +1,14 @@
 import React from 'react'
 import { ChakraProvider } from '@chakra-ui/react';
-import QUnitText from "../Components/qUnitText"
-import Navbar from '../Components/Navbar';
+import QUnitText from "../components/qUnitText"
+import Navbar from '../components/Navbar';
 
-function bioUnit7() {
+function BioUnit7() {
   return (
     <>
     <Navbar/>
     <br/><br/>
-    <ChakraProvider>
+    <br/>
         <QUnitText question="1. "/>
         <br/>
         <QUnitText question="2. "/>
@@ -626,14 +626,8 @@ function bioUnit7() {
         <QUnitText question="299. "/>
         <br/>
         <QUnitText question="300. "/>
-
-
-        
-
-
-    </ChakraProvider>
     </>
   )
 }
 
-export default bioUnit7
+export default BioUnit7
