@@ -17,10 +17,10 @@ function Navbar() {
                 py={2}
                 rounded="md"
                 //bg={isActive ? "blue.400" : "transparent"}
-                color={isActive ? "white" : "inherit"}
+                color="white" 
                 _hover={{
                     //bg: useColorModeValue("blue.400", "blue.600"),
-                    //color: "white"
+                    color: "blue.300"
                 }}
                 {...props}
             >
@@ -46,9 +46,9 @@ function Navbar() {
                 <HStack as="ul" spacing="8px" listStyleType="none" alignItems="center">
                     <CustomLink to="/explore">
                         <Button
-                        colorScheme="blue"
-                        variant="outline"
-                        size="sm"
+                        colorScheme="white"
+                        //variant="outline"
+                        size="md"
                         >
                         Explore
                         </Button>
@@ -56,9 +56,9 @@ function Navbar() {
 
                     <Link as={RouterLink} to="/account">
                         <Button
-                        colorScheme="blue"
-                        variant="outline"
-                        size="sm"
+                        colorScheme="white"
+                        //variant="outline"
+                        size="md"
                         >
                         Account
                         </Button>
@@ -66,15 +66,15 @@ function Navbar() {
 
                     <Button
                         onClick={() => navigate('/login')}
-                        colorScheme="blue"
-                        variant="outline"
-                        size="sm"
+                        colorScheme="white"
+                        //variant="outline"
+                        size="md"
                     >
                         Login
                     </Button>
 
                     <Link as={RouterLink} to="/signup">
-                        <Button colorScheme="blue" size="sm">
+                        <Button colorScheme="blue" size="md">
                             Signup
                         </Button>
                     </Link>
