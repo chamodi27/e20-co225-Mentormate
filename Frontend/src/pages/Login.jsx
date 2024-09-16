@@ -38,7 +38,7 @@ const Login = () => {
         console.log('Login successful!');
 
         // Redirect to the chat page
-        navigate('/chat'); // Use navigate to redirect to the chat page
+        navigate('/explore'); // Use navigate to redirect to the home page
       })
       .catch(error => {
         // On error, display an error message
