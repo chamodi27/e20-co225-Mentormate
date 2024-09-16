@@ -43,7 +43,7 @@ function Navbar() {
                     MentorMate
                 </Text>
 
-                <HStack as="ul" spacing={6} listStyleType="none" alignItems="center">
+                <HStack as="ul" spacing="8px" listStyleType="none" alignItems="center">
                     <CustomLink to="/explore">
                         <Button
                         colorScheme="blue"
@@ -54,7 +54,7 @@ function Navbar() {
                         </Button>
                     </CustomLink>
 
-                    <CustomLink to="/account">
+                    <Link as={RouterLink} to="/account">
                         <Button
                         colorScheme="blue"
                         variant="outline"
@@ -62,7 +62,7 @@ function Navbar() {
                         >
                         Account
                         </Button>
-                    </CustomLink>
+                    </Link>
 
                     <Button
                         onClick={() => navigate('/login')}
@@ -72,11 +72,12 @@ function Navbar() {
                     >
                         Login
                     </Button>
-                    <CustomLink to="/signup">
+
+                    <Link as={RouterLink} to="/signup">
                         <Button colorScheme="blue" size="sm">
                             Signup
                         </Button>
-                    </CustomLink>
+                    </Link>
                 </HStack>
             </Flex>
         </Box>

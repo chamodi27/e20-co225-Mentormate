@@ -4,7 +4,6 @@ import {
   Text,
   VStack,
   HStack,
-  Image,
   Button,
   Icon,
   Input,
@@ -15,14 +14,46 @@ import {
   Heading,
   Stack,
   useColorModeValue,
+  Link,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  FormControl,
+  FormLabel,
+  FormHelperText,
+  Input as ChakraInput,
+  Select,
 } from '@chakra-ui/react';
-import { FaUserEdit, FaSignOutAlt, FaCalendarAlt, FaMapMarkerAlt, FaLanguage, FaEnvelope } from 'react-icons/fa';
+import { FaUserEdit, FaSignOutAlt, FaCalendarAlt, FaMapMarkerAlt, FaLanguage, FaEnvelope, FaCreditCard, FaLock } from 'react-icons/fa';
 
 function Account() {
   const [profilePicture, setProfilePicture] = useState('https://via.placeholder.com/80');
-  
+  const [isChangePasswordOpen, setIsChangePasswordOpen] = useState(false);
+  const [isCardDetailsOpen, setIsCardDetailsOpen] = useState(false);
+  const [editing, setEditing] = useState(null);
+  const [formData, setFormData] = useState({
+    name: 'Firstname Lastname',
+    dob: '07 July 2005',
+    address: 'Give your address here',
+    language: 'English',
+    email: 'ikakodesign@gmail.com',
+  });
+
   const handleEditClick = (field) => {
-    alert(`Edit ${field} clicked`);
+    setEditing(field);
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSave = () => {
+    // Save the form data
+    setEditing(null);
   };
 
   const handleProfilePictureChange = (e) => {
@@ -35,12 +66,17 @@ function Account() {
     }
   };
 
+  const handleOpenChangePassword = () => setIsChangePasswordOpen(true);
+  const handleCloseChangePassword = () => setIsChangePasswordOpen(false);
+  
+  const handleOpenCardDetails = () => setIsCardDetailsOpen(true);
+  const handleCloseCardDetails = () => setIsCardDetailsOpen(false);
+
   return (
-    <Box bg={useColorModeValue('gray.50', 'gray.800')} minH="100vh" p={6}>
+    <Box bg={useColorModeValue('gray.300', 'gray.800')} minH="100vh" p={6}>
       {/* Navbar */}
       <Box mb={8}>
-        {/* Placeholder Navbar */}
-        <Text fontSize="xl" fontWeight="bold" color="blue.600">My Account</Text>
+        <Text fontSize="2xl" fontWeight="bold" color="blue.700">My Account</Text>
       </Box>
       
       <HStack align="flex-start" spacing={6}>
@@ -68,14 +104,24 @@ function Account() {
           >
             Change Profile Picture
           </Button>
-          <Heading size="md">Firstname Lastname</Heading>
-          <Text color="gray.500">name@gmail.com</Text>
+          <Heading size="md">{formData.name}</Heading>
+          <Text color="gray.500">{formData.email}</Text>
 
           <Divider />
           
           <List spacing={4} textAlign="left" w="full">
-            <ListItem fontWeight="bold" color="blue.500">My Profile</ListItem>
-            <ListItem>Billing & Payments</ListItem>
+            <ListItem
+              fontWeight="bold"
+              color="blue.500"
+            >
+              <Link href="#profile">My Profile</Link>
+            </ListItem>
+            <ListItem>
+              <Link onClick={handleOpenCardDetails}>Billing & Payments</Link>
+            </ListItem>
+            <ListItem>
+              <Link onClick={handleOpenChangePassword}>Change Password</Link>
+            </ListItem>
           </List>
         </VStack>
 
@@ -102,59 +148,184 @@ function Account() {
             <ProfileCard
               icon={FaUserEdit}
               title="Name"
-              description="Your name"
-              onEditClick={() => handleEditClick('Name')}
+              description={formData.name}
+              type="text"
+              isEditing={editing === 'name'}
+              onEditClick={() => handleEditClick('name')}
+              onSave={handleSave}
+              onChange={handleInputChange}
             />
             <ProfileCard
               icon={FaCalendarAlt}
               title="Date of Birth"
-              description="07 July 2005"
-              onEditClick={() => handleEditClick('Date of Birth')}
+              description={formData.dob}
+              type="date"
+              isEditing={editing === 'dob'}
+              onEditClick={() => handleEditClick('dob')}
+              onSave={handleSave}
+              onChange={handleInputChange}
             />
             <ProfileCard
               icon={FaMapMarkerAlt}
               title="Address"
-              description="Give your address here"
-              onEditClick={() => handleEditClick('Address')}
+              description={formData.address}
+              type="address"
+              isEditing={editing === 'address'}
+              onEditClick={() => handleEditClick('address')}
+              onSave={handleSave}
+              onChange={handleInputChange}
             />
             <ProfileCard
               icon={FaLanguage}
               title="Language"
-              description="English (UK)"
-              onEditClick={() => handleEditClick('Language')}
+              description={formData.language}
+              type="dropdown"
+              isEditing={editing === 'language'}
+              onEditClick={() => handleEditClick('language')}
+              onSave={handleSave}
+              onChange={handleInputChange}
             />
             <ProfileCard
               icon={FaEnvelope}
               title="Contactable at"
-              description="ikakodesign@gmail.com"
-              onEditClick={() => handleEditClick('Email')}
+              description={formData.email}
+              type="email"
+              isEditing={editing === 'email'}
+              onEditClick={() => handleEditClick('email')}
+              onSave={handleSave}
+              onChange={handleInputChange}
             />
           </Stack>
         </Box>
       </HStack>
+
+      {/* Change Password Modal */}
+      <Modal isOpen={isChangePasswordOpen} onClose={handleCloseChangePassword}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Change Password</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <FormControl>
+              <FormLabel>Current Password</FormLabel>
+              <ChakraInput type="password" placeholder="Current Password" />
+              <FormHelperText>Enter your current password.</FormHelperText>
+            </FormControl>
+            <FormControl mt={4}>
+              <FormLabel>New Password</FormLabel>
+              <ChakraInput type="password" placeholder="New Password" />
+              <FormHelperText>Enter a new password.</FormHelperText>
+            </FormControl>
+            <FormControl mt={4}>
+              <FormLabel>Confirm New Password</FormLabel>
+              <ChakraInput type="password" placeholder="Confirm New Password" />
+            </FormControl>
+            <Button mt={4} colorScheme="blue" onClick={handleCloseChangePassword}>
+              Save
+            </Button>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
+
+      {/* Card Details Modal */}
+      <Modal isOpen={isCardDetailsOpen} onClose={handleCloseCardDetails}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Card Details</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Box>
+              <Heading size="md" mb={4}>Card Information</Heading>
+              <Text mb={4}>Here you can manage your card details.</Text>
+              <Button colorScheme="blue">Add New Card</Button>
+            </Box>
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 }
 
-const ProfileCard = ({ icon, title, description, onEditClick }) => (
-  <HStack
-    p={4}
-    bg={useColorModeValue('gray.100', 'gray.600')}
-    rounded="md"
-    boxShadow="md"
-    justify="space-between"
-  >
-    <HStack spacing={4}>
-      <Icon as={icon} boxSize={6} color="blue.500" />
-      <VStack align="start" spacing={1}>
-        <Text fontWeight="bold">{title}</Text>
-        <Text color="gray.500">{description}</Text>
-      </VStack>
-    </HStack>
-    <Button size="sm" colorScheme="blue" onClick={onEditClick}>
-      Edit
-    </Button>
-  </HStack>
-);
-
-export default Account;
+const ProfileCard = ({ icon, title, description, type, isEditing, onEditClick, onSave, onChange }) => {
+    const [value, setValue] = useState(description);
+  
+    const handleChange = (e) => {
+      setValue(e.target.value);
+      onChange(e);
+    };
+  
+    return (
+      <HStack
+        p={4}
+        bg={useColorModeValue('gray.100', 'gray.600')}
+        rounded="md"
+        boxShadow="md"
+        justify="space-between"
+      >
+        <HStack spacing={4}>
+          <Icon as={icon} boxSize={6} color="blue.500" />
+          <VStack align="start" spacing={1}>
+            <Text fontWeight="bold">{title}</Text>
+            {isEditing ? (
+              type === 'text' ? (
+                <FormControl>
+                  <Input
+                    value={value}
+                    onChange={handleChange}
+                    name={title.toLowerCase().replace(/\s+/g, '')}
+                  />
+                </FormControl>
+              ) : type === 'date' ? (
+                <FormControl>
+                  <Input
+                    type="date"
+                    value={value}
+                    onChange={handleChange}
+                    name={title.toLowerCase().replace(/\s+/g, '')}
+                  />
+                </FormControl>
+              ) : type === 'address' ? (
+                <FormControl>
+                  <Input
+                    value={value}
+                    onChange={handleChange}
+                    name={title.toLowerCase().replace(/\s+/g, '')}
+                    placeholder="Enter address"
+                  />
+                </FormControl>
+              ) : type === 'dropdown' ? (
+                <FormControl>
+                  <Select
+                    value={value}
+                    onChange={handleChange}
+                    name={title.toLowerCase().replace(/\s+/g, '')}
+                  >
+                    <option value="English">English</option>
+                    <option value="Sinhala">Sinhala</option>
+                    <option value="Tamil">Tamil</option>
+                  </Select>
+                </FormControl>
+              ) : type === 'email' ? (
+                <FormControl>
+                  <Input
+                    type="email"
+                    value={value}
+                    onChange={handleChange}
+                    name={title.toLowerCase().replace(/\s+/g, '')}
+                  />
+                </FormControl>
+              ) : null
+            ) : (
+              <Text color="gray.500">{description}</Text>
+            )}
+          </VStack>
+        </HStack>
+        <Button size="sm" colorScheme="blue" onClick={isEditing ? onSave : onEditClick}>
+          {isEditing ? 'Save' : 'Edit'}
+        </Button>
+      </HStack>
+    );
+  };
+  
+  export default Account;
+  
