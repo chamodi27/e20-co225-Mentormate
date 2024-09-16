@@ -35,7 +35,7 @@ function App() {
       <Route path="/forgotpassword" element={<ForgotPassword />} />
       <Route path="/chat" element={<ChatMentor />} />
       <Route path='/signup' element={<SignUp/>} />
-      <Route pathh="/account" element={<Account/>} />
+      <Route path="/account" element={<Account/>} />
 
       <Route path='/explore' element={<Subject/>} /> 
       {/* Dynamic route for different subjects */}
