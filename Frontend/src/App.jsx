@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import Account from './pages/Account';
 import ChatMentor from './pages/ChatMentor';
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -32,6 +33,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/chat" element={<ChatMentor />} />
       <Route path='/signup' element={<SignUp/>} />
+      <Route pathh="/account" element={<Account/>} />
 
       <Route path='/explore' element={<Subject/>} /> 
       {/* Dynamic route for different subjects */}
