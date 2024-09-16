@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link as RouterLink, useMatch, useResolvedPath, useNavigate } from 'react-router-dom';
-import { Box, Flex, HStack, Button, Text, Link, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, HStack, Button, Text, Link, useColorModeValue, Collapse, IconButton, useBreakpointValue } from '@chakra-ui/react';
+import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 
 function Navbar() {
-    const navigate = useNavigate(); // Initialize the navigate function
+    const navigate = useNavigate();
+    const [isOpen, setIsOpen] = useState(false);
+    const buttonColor = useBreakpointValue({ base: 'black', md: 'blue' });
 
     function CustomLink({ to, children, ...props }) {
         const resolvedPath = useResolvedPath(to);
@@ -16,12 +19,8 @@ function Navbar() {
                 px={3}
                 py={2}
                 rounded="md"
-                //bg={isActive ? "blue.400" : "transparent"}
-                color="white" 
-                _hover={{
-                    //bg: useColorModeValue("blue.400", "blue.600"),
-                    color: "blue.300"
-                }}
+                color={isActive ? "blue.400" : "white"}
+                _hover={{ color: "blue.300" }}
                 {...props}
             >
                 {children}
@@ -43,43 +42,58 @@ function Navbar() {
                     MentorMate
                 </Text>
 
-                <HStack as="ul" spacing="8px" listStyleType="none" alignItems="center">
+                <HStack spacing="8px" display={{ base: 'none', md: 'flex' }} alignItems="center">
                     <CustomLink to="/explore">
-                        <Button
-                        colorScheme="white"
-                        //variant="outline"
-                        size="md"
-                        >
-                        Explore
-                        </Button>
+                        <Button colorScheme="white" size="md">Explore</Button>
                     </CustomLink>
 
                     <Link as={RouterLink} to="/account">
-                        <Button
-                        colorScheme="white"
-                        //variant="outline"
-                        size="md"
-                        >
-                        Account
-                        </Button>
+                        <Button colorScheme="white" size="md">Account</Button>
                     </Link>
 
-                    <Button
-                        onClick={() => navigate('/login')}
-                        colorScheme="white"
-                        //variant="outline"
-                        size="md"
-                    >
-                        Login
-                    </Button>
+                    <Button onClick={() => navigate('/login')} colorScheme="white" size="md">Login</Button>
 
                     <Link as={RouterLink} to="/signup">
-                        <Button colorScheme="blue" size="md">
+                        <Button colorScheme={buttonColor} size="md">
                             Signup
                         </Button>
                     </Link>
                 </HStack>
+
+                <IconButton
+                    aria-label="Toggle Navigation"
+                    icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+                    onClick={() => setIsOpen(!isOpen)}
+                    display={{ base: 'flex', md: 'none' }}
+                />
             </Flex>
+
+            <Collapse in={isOpen}>
+                <Box
+                    bg={useColorModeValue("gray.800", "gray.900")}
+                    px={4}
+                    py={2}
+                    display={{ base: 'flex', md: 'none' }}
+                >
+                    <HStack spacing={4} flexDirection="column" alignItems="start">
+                        <CustomLink to="/explore">
+                            <Button colorScheme="white" size="md">Explore</Button>
+                        </CustomLink>
+
+                        <Link as={RouterLink} to="/account">
+                            <Button colorScheme="white" size="md">Account</Button>
+                        </Link>
+
+                        <Button onClick={() => navigate('/login')} colorScheme="white" size="md">Login</Button>
+
+                        <Link as={RouterLink} to="/signup">
+                            <Button colorScheme={buttonColor} size="md">
+                                Signup
+                            </Button>
+                        </Link>
+                    </HStack>
+                </Box>
+            </Collapse>
         </Box>
     );
 }
