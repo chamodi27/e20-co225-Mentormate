@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import ChatMentor from './pages/ChatMentor';
 import Login from './pages/Login';
+import ForgotPassword from './pages/ForgotPassword';
 import Home from './pages/Home';
 import SignUp from './pages/Signup';
 import Explore from './pages/Explore';
@@ -30,6 +31,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/forgotpassword" element={<ForgotPassword />} />
       <Route path="/chat" element={<ChatMentor />} />
       <Route path='/signup' element={<SignUp/>} />
 
