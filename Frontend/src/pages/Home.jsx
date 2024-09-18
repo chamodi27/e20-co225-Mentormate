@@ -50,7 +50,7 @@ export default function Home() {
       </Box>
 
       {/* Key Features */}
-      <VStack as="section" p="8" spacing="8" align="center" bg="#BCD5D8">
+      <VStack as="section" p="8" spacing="8" align="center" bg="#94AEC6">
         <Heading>Key Features</Heading>
         <HStack spacing="8">
           <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" textAlign="center">
@@ -77,7 +77,7 @@ export default function Home() {
       </VStack>
 
       {/* How to get started */}
-      <VStack as="section" p="8" spacing="8" align="center" bg="#d4f1f4">
+      <VStack as="section" p="8" spacing="8" align="center" bg="#ABC8E4">
         <Heading>How to Get Started</Heading>
         <HStack spacing="8">
           <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" textAlign="center">
