@@ -48,13 +48,13 @@ function Explore() {
         align="center"
         minHeight="100vh"
         width="100vw"
-        bg="gray.400"
+        bg="#ABC8E4"
       >
         <Box textAlign="center" mb={8}>
           <Heading
             as="h1" 
             size="2xl" 
-            color="gray.700"
+            color="#0D1626"
             letterSpacing="widest"
             textShadow="2px 2px 8px rgba(0, 0, 0, 0.5)"
           >
@@ -77,10 +77,10 @@ function Explore() {
             justify="center"
             align="center"
             p={10}
-            bg="#96bfe8"
+            bg="#5F9BD0"
             textAlign="center"
           >
-            <Heading as="h2" size="xl" color="gray.700" mb={4}>
+            <Heading as="h2" size="xl" color="#0D1626" mb={4}>
               Test Your Knowledge
             </Heading>
             <Text fontSize="lg" color="gray.700" mb={6}>
@@ -103,10 +103,10 @@ function Explore() {
             justify="center"
             align="center"
             p={10}
-            bg="#68b3f5"
+            bg="#5BB0C9"
             textAlign="center"
           >
-            <Heading as="h2" size="xl" color="gray.700" mb={4}>
+            <Heading as="h2" size="xl" color="#0D1626" mb={4}>
               Ask Your Questions
             </Heading>
             <Text fontSize="lg" color="gray.700" mb={6}>
