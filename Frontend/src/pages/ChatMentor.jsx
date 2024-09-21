@@ -1,5 +1,6 @@
+// src/pages/ChatMentor.jsx
 import React, { useState, useEffect } from 'react';
-import { Grid, GridItem, Box, Text, Spinner } from '@chakra-ui/react';
+import { Grid, GridItem, Box, Text, Spinner, useBreakpointValue } from '@chakra-ui/react';
 import Sidebar from '../components/Sidebar';
 import ChatContainer from '../components/ChatContainer';
 import apiServices from '../services/apiServices';
@@ -10,7 +11,8 @@ const ChatMentor = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // Load threads after user login
+  const isMobile = useBreakpointValue({ base: true, md: false });
+
   useEffect(() => {
     setLoading(true);
     apiServices.get('/threads')
@@ -22,15 +24,13 @@ const ChatMentor = () => {
         setError(error.message);
         setLoading(false);
       });
-  }, []); // Empty dependency array to run once on mount
+  }, []);
 
   const handleSelectThread = (thread) => {
     console.log('Selected thread:', thread.name);
     setLoading(true);
-    // Load messages for the selected thread
     apiServices.get(`/threads/${thread.id}/messages`)
       .then(response => {
-        // Directly use the messages as they are from the backend
         setMessages(response.data.messages);
         setLoading(false);
       })
@@ -56,7 +56,7 @@ const ChatMentor = () => {
 
   return (
     <Grid
-      templateColumns="250px 1fr"
+      templateColumns={isMobile ? "1fr" : "250px 1fr"}
       height="100vh"
       templateRows="1fr"
       gap="0"
@@ -65,6 +65,7 @@ const ChatMentor = () => {
         <Sidebar
           threads={threads}
           onSelectThread={handleSelectThread}
+          isMobile={isMobile}
         />
       </GridItem>
       <GridItem>
