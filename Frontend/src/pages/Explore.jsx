@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Heading, Flex, Text } from '@chakra-ui/react';
+import { Box, Button, Heading, Flex, Text, Stack } from '@chakra-ui/react';
 import Navbar from '../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import apiServices from '../services/apiServices'; // Import the ApiServices
@@ -10,17 +10,13 @@ function Explore() {
   // Check if the user is logged in by verifying the JWT token using ApiServices
   const isLoggedIn = () => {
     const token = apiServices.getAuthToken();
-    console.log(token); // Log the token to the console for debugging
     if (!token) {
-      console.log('No token found'); // Log a message if no token is found
       return false;
     }
 
-    // Optionally, add more robust validation (like token expiration check)
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
       const currentTime = Date.now() / 1000;
-      console.log(payload); // Log the payload to the console for debugging
       return payload.exp > currentTime; // Check if token is expired
     } catch (error) {
       return false; // Invalid token format
@@ -30,7 +26,6 @@ function Explore() {
   // Function to handle the Ask Now button click
   const handleAskNowClick = () => {
     if (isLoggedIn()) {
-      console.log('User is logged in'); // Log a message if user is logged in
       navigate('/chat'); // User is logged in, proceed to chat
     } else {
       alert('Please log in to continue'); // Prompt to log in
@@ -62,10 +57,11 @@ function Explore() {
           </Heading>
         </Box>
         
-        <Flex 
-          justify="space-between" 
-          minHeight="400px"  // Set a minimum height
-          height={{ base: "auto", lg: "400px" }}  // Dynamic height with a fixed value for larger screens
+        {/* Responsive Stack for the mode selection */}
+        <Stack
+          direction={{ base: 'column', lg: 'row' }} // Column on small screens, row on large
+          spacing={4}
+          minHeight="400px"
           width={{ base: "90%", md: "80%", lg: "70%" }}
           borderRadius="20px"
           overflow="hidden"
@@ -122,7 +118,7 @@ function Explore() {
               Ask Now
             </Button>
           </Flex>
-        </Flex>
+        </Stack>
       </Flex>
     </>
   );
