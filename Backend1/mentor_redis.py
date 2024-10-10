@@ -209,7 +209,7 @@ class mentorMate:
         :param new_similarity_docs: The documents retrieved based on the rewritten query.
         :return: The generated response.
         """
-        llm = ChatGroq(temperature=0.2, max_tokens=3000, model="Llama3-8b-8192", streaming=True)
+        llm = ChatGroq(temperature=0.2, max_tokens=3000, model="llama-3.1-8b-instant", streaming=True)
         system = """
             you are a helpful personal tutor. Your task is to answer questions about biology solely based on the content provided.
             Your scope is limited to the content provided. You're answering to an advanced level high school student.
