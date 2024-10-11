@@ -27,7 +27,7 @@ const ChatModal = ({ question, answer,unit_no,question_no }) => {
     ]);
 
     // Placeholder: Process chatbot response here...
-    apiServices.post('/QA',{student_answer: answer, unit_question: question , student_question: message})
+    apiServices.post('/QA',{unit_no:unit_no, question_no:question_no, student_question: message})
       .then(response => {
         const assistantMessage = { content: response.data.message, type: 'ai' };
         setMessages(prevMessages => [...prevMessages, assistantMessage]);
