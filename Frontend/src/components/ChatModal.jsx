@@ -4,7 +4,7 @@ import MessageList from './MessageList'; // Your MessageList component
 import MessageInput from './MessageInput'; // Your MessageInput component
 import apiServices from '../services/apiServices';
 
-const ChatModal = ({ question, answer }) => {
+const ChatModal = ({ question, answer,unit_no,question_no }) => {
   const { isOpen, onOpen, onClose } = useDisclosure(); 
   const [messages, setMessages] = useState([]);
 
@@ -42,7 +42,7 @@ const ChatModal = ({ question, answer }) => {
         onOpen();
         console.log(question);
         // Review the answer
-        apiServices.post('/review_question',{student_answer: answer, unit_question: question })
+        apiServices.post('/review_question',{student_answer: answer, unit_question: question,unit_no:unit_no, question_no:question_no})
         .then(response => {
           const assistantMessage = { content: response.data.message, type: 'ai' };
           setMessages(prevMessages => [...prevMessages, assistantMessage]);

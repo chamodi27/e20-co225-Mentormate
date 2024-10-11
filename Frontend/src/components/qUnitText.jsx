@@ -40,7 +40,7 @@ function qUnitText({ question,UnitNo,QuestionNo}) {
           </Button>
 
           {/* Step 3: Pass both question and answer to ChatModal */}
-          <ChatModal question={question} answer={answer} />
+          <ChatModal question={question} answer={answer} unit_no={UnitNo} question_no={QuestionNo} />
         </CardFooter>
       </Card>
     </>
