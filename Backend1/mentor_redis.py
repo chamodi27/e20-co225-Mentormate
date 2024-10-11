@@ -19,6 +19,7 @@ r = redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True)
 # Redis key prefix for chat history caching
 CHAT_HISTORY_KEY_PREFIX = "chat_history:"
 
+
 class mentorMate:
     """
     A class to manage interactions and responses for a conversational AI system. It handles user input, maintains chat history,
@@ -54,14 +55,14 @@ class mentorMate:
             Determines if the topic of the conversation has changed and provides a suitable title for the new topic.
     """
 
-    def __init__(self, user_input, user_email):
+    def __init__(self, user_email,user_input = None ):
         """
         Initializes the mentorMate instance with user input and email. Sets up chat history management and environment variables.
         
         :param user_input: The user's input or question.
         :param user_email: The email of the user whose chat history is managed.
         """
-        self.user_input = user_input 
+        self.user_input = user_input if user_input is not None else ""
         self.user_email = user_email
         self.redis_key = f"{CHAT_HISTORY_KEY_PREFIX}{user_email}"
         self.chat_history_manager = ChatHistoryManager(user_email=user_email)
@@ -157,7 +158,7 @@ class mentorMate:
             print("-------------------------------------------------------")
 
             # Update the chat history in Redis - cache the last 4 interactions
-            self.update_chat_history(formatted_history)
+            self.update_chat_history(history=formatted_history, redis_key=self.redis_key)
 
             print("Chat History updated in Redis:", formatted_history)
             print("-------------------------------------------------------")
@@ -244,16 +245,16 @@ class mentorMate:
             "history": history
         })
 
-    def update_chat_history(self, history):
+    def update_chat_history(self, history,redis_key,K=4):
         """
-        Updates the chat history in Redis, keeping only the last 4 interactions.
+        Updates the chat history in Redis, keeping only the last K(4) interactions.
         
         :param history: The formatted chat history to be stored.
         """
         # Convert history to string format to store in Redis
-        r.delete(self.redis_key)  # Clear old history
-        for message in history[-4:]:  # Keep only the last 4 interactions
-            r.rpush(self.redis_key, message.content)
+        r.delete(redis_key)  # Clear old history
+        for message in history[-K:]:  # Keep only the last K(4) interactions
+            r.rpush(redis_key, message.content)
 
     def clean_text(self, text):
         """
@@ -315,3 +316,98 @@ class mentorMate:
             logging.error(f"Topic changed detection error occurred: {e}")
 
             return {"topic_changed": False, "new_conversation": False, "new_topic_title": None, "Summary_topic_title": None}
+        
+
+    def review_question(self , unit_question,unit_no,question_no ,student_answer=None,sample_answer=None):
+
+        student_answer = student_answer if student_answer is not None else ""
+        sample_answer = sample_answer if sample_answer is not None else ""
+        student_name = self.user_name
+        print("student_name",student_name)
+
+
+        # retrive chat history for the specific user , specific unit and specific question
+        UNIT_QUESTIONS_CHAT_HISTORY_KEY = f"unit_questions_chat_history:{unit_no}:{question_no}:{self.user_email}"
+        history = r.lrange(UNIT_QUESTIONS_CHAT_HISTORY_KEY, -4, -1)
+
+        print("-------------------------------------------------------")
+        print("Chat History retrived:", history)
+        print("-------------------------------------------------------")
+            
+        # Format the history into alternating HumanMessage and AIMessage
+        formatted_history = []
+        for i, msg in enumerate(history):
+            if i % 2 == 0:  # Even index: HumanMessage
+                formatted_history.append(HumanMessage(content=msg))
+            else:  # Odd index: AIMessage
+                formatted_history.append(AIMessage(content=msg))
+
+        # generating response for the user question
+        llm = ChatGroq(temperature=0.2, max_tokens=3000, model="llama-3.1-8b-instant", streaming=True)
+       # llm = ChatGroq(temperature=0.3, max_tokens=3000, model="Llama3-8b-8192", streaming=True)
+
+         # Retrieve similar documents using the rewritten query
+        pdf_retriever = ChromaRetrevier(db_path="vectorDb", collection_name="PDFCollection")
+
+        if unit_question:
+            reviewing_content = pdf_retriever.query_documents(unit_question)
+            print('reviewing conetent',reviewing_content)
+        else:
+            reviewing_content = ""
+
+        content = f"Reference Answer : {sample_answer}. Relevant Content from curriculum: {reviewing_content}"
+
+        system = """
+You are a helpful personal tutor assisting your student with unit-based questions from their Biology curriculum. Your task is to review the student's answer and provide personalized, detailed feedback, helping them understand the concepts better. Use the student's name to make your feedback more engaging and encouraging.
+
+Task:
+1)If the student has answered the question, assess their response.
+1.1)If the answer is correct, provide positive feedback and reinforce their understanding.
+1.2)If the answer can be improved, offer constructive feedback, explain the concept in detail, and fill in any missing information.
+1.3)If the answer is incorrect, give the correct answer, explain why it is correct, and guide the student through the reasoning process.
+2)If the student has not answered the question, begin your response with "The question is about..." and then provide a detailed explanation and answer using the relevant content. Address the student by name to make the response more personal and encouraging.
+
+Input Variables:
+Student's Name: {student_name}
+Has the student answered the question?: {is_student_answered}
+Student's Answer: {student_answer}
+Unit Question: {unit_question}
+Relevant Content: {Task1_content}
+
+Guidelines for Reviewing:
+Always refer to the relevant content when reviewing the student's answer.
+Ensure your feedback is personalized, detailed, and informative.
+For correct answers, provide encouragement and reinforce key points.
+For partial answers, clarify concepts, address gaps, and expand explanations.
+For incorrect answers, provide the correct response, explain the underlying concepts, and guide the student through understanding.
+
+Formatting Instructions:
+Use paragraphs for detailed explanations.
+Use bullet points for lists where appropriate.
+Use numbers for ordered steps.
+Highlight key points with bold text.
+Use headings to organize feedback clearly.
+Use personal headings, use pronouns in headings where necessary.
+Include the student's name throughout your feedback to make it personal.
+            """
+
+        chat_template = ChatPromptTemplate.from_messages([
+            ("system", system),
+  ])
+        chain = chat_template | llm | StrOutputParser()
+
+        response =  chain.invoke({   
+            "Task1_content": content,
+            "student_answer": student_answer,
+            "unit_question": unit_question,
+            "is_student_answered": bool(student_answer),
+            "student_name": student_name
+        })
+
+        print("Response: ", response)
+        return response
+
+
+def answer_student_unit_question(self,unit_no,question_no,student_question):
+    UNIT_QUESTIONS_CHAT_HISTORY_KEY_PREFIX = f"unit_questions_chat_history:{unit_no}:{question_no}:{self.user_email}"
+
