@@ -412,7 +412,7 @@ Include the student's name throughout your feedback to make it personal.
         # Add bot response to the chat history
         formatted_history.append(AIMessage(response))
 
-        self.update_chat_history(history=formatted_history, redis_key=UNIT_QUESTIONS_CHAT_HISTORY_KEY,K=6)
+        self.update_chat_history(history=formatted_history, redis_key=UNIT_QUESTIONS_CHAT_HISTORY_KEY)
         print("-------------------------------------------------------")
         print("Chat History updated in Redis:", formatted_history)
         print("-------------------------------------------------------")
@@ -421,6 +421,52 @@ Include the student's name throughout your feedback to make it personal.
         return response
 
 
-def answer_student_unit_question(self,unit_no,question_no,student_question):
-    UNIT_QUESTIONS_CHAT_HISTORY_KEY_PREFIX = f"unit_questions_chat_history:{unit_no}:{question_no}:{self.user_email}"
+    def answer_student_unit_question(self,unit_no,question_no):
+        student_question = self.user_input
+        UNIT_QUESTIONS_CHAT_HISTORY_KEY = f"unit_questions_chat_history:{unit_no}:{question_no}:{self.user_email}"
+        history = r.lrange(UNIT_QUESTIONS_CHAT_HISTORY_KEY, -4, -1)
+
+        print("-------------------------------------------------------")
+        print("Chat History retrived:", history)
+        print("-------------------------------------------------------")
+                
+        # Format the history into alternating HumanMessage and AIMessage
+        formatted_history = []
+        for i, msg in enumerate(history):
+            if i % 2 == 0:  # Even index: HumanMessage
+                formatted_history.append(HumanMessage(content=msg))
+            else:  # Odd index: AIMessage
+                formatted_history.append(AIMessage(content=msg))
+
+        print("formatted_history:", formatted_history)
+        
+        llm = ChatGroq(temperature=0.2, max_tokens=3000, model="llama-3.1-8b-instant", streaming=True)
+
+        # Rewriting the query based on chat history
+        re_written_query = self.rewrite_query(formatted_history)
+
+
+        print("-------------------------------------------------------")
+        print("Re-written Query:", re_written_query)
+        print("-------------------------------------------------------")
+
+        # Retrieve similar documents using the rewritten query
+        pdf_retriever = ChromaRetrevier(db_path="vectorDb", collection_name="PDFCollection")
+        new_similarity_docs = pdf_retriever.query_documents(re_written_query)
+        print("Similarity Docs:", new_similarity_docs)
+
+        response = self.generate_response(formatted_history, new_similarity_docs)
+        print("Response: ", response)
+
+        formatted_history.append(AIMessage(response))
+        self.update_chat_history(history=formatted_history, redis_key=UNIT_QUESTIONS_CHAT_HISTORY_KEY)
+        print("-------------------------------------------------------")
+        print("Chat History updated in Redis:", formatted_history)
+
+        return response
+
+
+
+
+
 

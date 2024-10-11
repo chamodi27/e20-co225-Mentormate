@@ -206,7 +206,38 @@ def review_question():
 
 
     mentor = mentorMate(user_email=user_email)
-    response = mentor.review_question(student_answer=student_answer, unit_question=unit_question, sample_answer=sample_answer2 , unit_no=unit_no, question_no=question_no)
+    response = mentor.review_question(student_answer=student_answer, unit_question=unit_question, sample_answer=sample_answer , unit_no=unit_no, question_no=question_no)
+    
+    print("Response: ", response)
+    return jsonify({'message': response})
+
+@app.route('/api/QA', methods=['POST'])
+def QA():
+
+    auth_header = request.headers.get('Authorization')
+    if not auth_header:
+        print("Authorization header missing")
+        return jsonify({'error': 'Authorization header missing'}), 401
+
+    # Extract the token from the Authorization header
+    token = auth_header.split(" ")[1]
+    user_data = decode_jwt(token)
+    if not user_data:
+        print("Invalid or expired token")
+        return jsonify({'error': 'Invalid or expired token'}), 401
+
+    user_email = user_data.get('email')
+    print("User Email: ", user_email)
+
+    data = request.json
+    student_question = data.get('student_question')
+    unit_no = data.get('unit_no')
+    question_no = data.get('question_no')
+    print("Student Question: ", student_question)
+
+    mentor = mentorMate(user_input=student_question,user_email=user_email)
+    response = mentor.answer_student_unit_question(unit_no=unit_no, question_no=question_no)
+
     
     print("Response: ", response)
     return jsonify({'message': response})
