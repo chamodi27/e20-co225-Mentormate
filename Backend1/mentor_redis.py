@@ -342,6 +342,11 @@ class mentorMate:
             else:  # Odd index: AIMessage
                 formatted_history.append(AIMessage(content=msg))
 
+        # Add student's answer to the chat history
+        print("formatted_history:", formatted_history)
+        formatted_history.append(HumanMessage(student_answer))
+        print("formatted_history_after_student_answer:", formatted_history)
+
         # generating response for the user question
         llm = ChatGroq(temperature=0.2, max_tokens=3000, model="llama-3.1-8b-instant", streaming=True)
        # llm = ChatGroq(temperature=0.3, max_tokens=3000, model="Llama3-8b-8192", streaming=True)
@@ -404,6 +409,14 @@ Include the student's name throughout your feedback to make it personal.
             "student_name": student_name
         })
 
+        # Add bot response to the chat history
+        formatted_history.append(AIMessage(response))
+
+        self.update_chat_history(history=formatted_history, redis_key=UNIT_QUESTIONS_CHAT_HISTORY_KEY,K=6)
+        print("-------------------------------------------------------")
+        print("Chat History updated in Redis:", formatted_history)
+        print("-------------------------------------------------------")
+        
         print("Response: ", response)
         return response
 

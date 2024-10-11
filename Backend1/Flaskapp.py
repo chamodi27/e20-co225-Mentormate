@@ -193,15 +193,20 @@ def review_question():
     print("Student Answer: ", student_answer)
     unit_question = data.get('unit_question')
     print("Unit Question: ", unit_question)
+    unit_no = data.get('unit_no')
+    question_no = data.get('question_no')
+
     sample_answer = """	
     Production of high yielding plant and animal varieties.
 	Production of disease-resistant plant and animal varieties.
 	Development of post-harvest technology.
     """
 
+    sample_answer2 ="	Structural, physiological and behavioral changes that support the survival and reproduction of an organism in accordance with the specific environment in which it lives."
+
 
     mentor = mentorMate(user_email=user_email)
-    response = mentor.review_question(student_answer=student_answer, unit_question=unit_question, sample_answer=sample_answer)
+    response = mentor.review_question(student_answer=student_answer, unit_question=unit_question, sample_answer=sample_answer2 , unit_no=unit_no, question_no=question_no)
     
     print("Response: ", response)
     return jsonify({'message': response})
