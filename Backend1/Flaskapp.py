@@ -242,6 +242,42 @@ def QA():
     print("Response: ", response)
     return jsonify({'message': response})
 
+@app.route('/api/grade', methods=['POST'])
+def grade():
+
+    auth_header = request.headers.get('Authorization')
+    if not auth_header:
+        print("Authorization header missing")
+        return jsonify({'error': 'Authorization header missing'}), 401
+
+    # Extract the token from the Authorization header
+    token = auth_header.split(" ")[1]
+    user_data = decode_jwt(token)
+    if not user_data:
+        print("Invalid or expired token")
+        return jsonify({'error': 'Invalid or expired token'}), 401
+
+    user_email = user_data.get('email')
+    print("User Email: ", user_email)
+
+    data = request.json
+    student_answer = data.get('student_answer')
+    question = data.get('question')
+    reference_answer = "Production of high yielding plant and animal varieties.Production of disease-resistant plant and animal varieties.Development of post-harvest technology."
+
+    mentor = mentorMate(user_email=user_email)
+    response = mentor.grade_student_answers(student_answer=student_answer,question=question,reference_answer=reference_answer)
+    print('response:' ,response)
+    score = response['score']
+    explanation = response['Explanation']
+    print("Explanation",explanation)
+    if score =='Error Occured':
+        print("Error Occured during grading")
+        return jsonify({'error':'Error Occured during grading. please try again later'}),401
+
+    return jsonify({'score':score , 'message':explanation})
+
+
 
 
 if __name__ == '__main__':
