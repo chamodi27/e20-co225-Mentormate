@@ -263,15 +263,19 @@ def grade():
     data = request.json
     student_answer = data.get('student_answer')
     question = data.get('question')
-    reference_answer = """Production of high yielding plant and animal varieties.
-	Production of disease-resistant plant and animal varieties.
-	Development of post-harvest technology."""
+    reference_answer = "Production of high yielding plant and animal varieties.Production of disease-resistant plant and animal varieties.Development of post-harvest technology."
 
     mentor = mentorMate(user_email=user_email)
     response = mentor.grade_student_answers(student_answer=student_answer,question=question,reference_answer=reference_answer)
     print('response:' ,response)
+    score = response['score']
+    explanation = response['Explanation']
+    print("Explanation",explanation)
+    if score =='Error Occured':
+        print("Error Occured during grading")
+        return jsonify({'error':'Error Occured during grading. please try again later'}),401
 
-    return jsonify({'message':response})
+    return jsonify({'score':score , 'message':explanation})
 
 
 
