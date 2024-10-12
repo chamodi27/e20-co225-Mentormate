@@ -10,7 +10,8 @@ function qUnitText({ question,UnitNo,QuestionNo}) {
   const [answer, setAnswer] = useState('');
   const [marks,setMarks] = useState(null);
   const [submit,setSubmit] = useState(false)
-
+  const [message ,setMessage] = useState('')
+  const [error,setError] = useState(false)
   // Step 2: Update the answer state as the user types
   const handleAnswerChange = (e) => {
     setAnswer(e.target.value);
@@ -19,11 +20,14 @@ function qUnitText({ question,UnitNo,QuestionNo}) {
   const handlesubmit = () => {
     apiServices.post('/grade',{student_answer:answer,question:question})
     .then(response =>{
-      setMarks(response.data.message)
+      setMarks(response.data.score)
+      setMessage(response.data.message)
       setSubmit(true)
     })
     .catch(error=>{
       console.log(error)
+      setMessage(error)
+      setError(true)
     })
   };
 
@@ -62,17 +66,44 @@ function qUnitText({ question,UnitNo,QuestionNo}) {
           <ChatModal question={question} answer={answer} unit_no={UnitNo} question_no={QuestionNo} />
         </CardFooter>
       </Card>
-      {submit && (
+      {submit && marks >=60 ? (
         <Box
-          bg="gray.800"
+          bg="green.700"
           w="100%"
           p={4}
           color="white"
+          borderColor={'green'}
         >
-          Evaluation of your answer: 
-          <MarkdownRenderer content={marks} />
+          Your Score : {marks} <br />
+          Explanation for your score:
+          <MarkdownRenderer content={message} />
         </Box>
-      )}
+      ): submit && marks >=30 ? (
+        <Box
+          bg="orange.400"
+          w="100%"
+          p={4}
+          color="white"
+          borderColor={'orange.200'}
+        >
+          Your Score : {marks} <br />
+          Explanation for your score:
+          <MarkdownRenderer content={message} />
+        </Box>        
+      ):submit && (
+        <Box
+          bg="red.400"
+          w="100%"
+          p={4}
+          color="white"
+          borderColor={'red'}
+        >
+          Your Score : {marks} <br />
+          Explanation for your score:
+          <MarkdownRenderer content={message} />
+        </Box>
+      )
+      }
     </>
   );
 }
