@@ -1,79 +1,130 @@
+from db.models import User, ChatThread, Message , Unit , Question , SampleAnswer
+from db.database import get_session
+from datetime import datetime
 
-from db_services import update_unit  # Assuming you have the function from before
-from google_spreadsheet import get_google_spreadsheet  # Assuming you have this function to access Google Sheets
 
-def populate_units_from_spreadsheet(spreadsheet_id, credentials_path):
+def update_unit(unit_name, unit_description=None):
     """
-    Populate the Unit table in the database using data from the 'units' sheet in a Google Spreadsheet.
+    Update or create a Unit in the database.
     
-    :param spreadsheet_id: The Google Spreadsheet ID.
-    :param credentials_path: Path to the Google Service Account credentials file.
+    :param unit_name: The name of the unit to update or create.
+    :param unit_description: An optional description for the unit.
     """
+    session = get_session()
     try:
-        # Step 1: Access the Google Spreadsheet
-        spreadsheet = get_google_spreadsheet(spreadsheet_id, credentials_path)
+        # Check if the unit already exists
+        unit = session.query(Unit).filter_by(unit_name=unit_name).first()
         
-        # Step 2: Access the 'units' sheet
-        sheet = spreadsheet.worksheet('units')
-
-        # Step 3: Retrieve all values from the sheet
-        range = 'A2:B'  # Columns A and B without headers
-        units_data = sheet.get(range)
-
-        # Step 4: Iterate through the rows and update the database
-        for row in units_data:
-            unit_name = row[0].strip()  # First column: Unit Name
-            unit_description = row[1].strip() if len(row) > 1 and row[1].strip else None  # if the description is emtpy, set it to None
-            
-            # Step 5: Check if the row is not empty (skip empty rows)
-            if not unit_name:
-                continue
-
-            # Step 6: Update or create the unit in the database
-            update_unit(unit_name, unit_description)
-
-        print("Database updated successfully with unit data from spreadsheet.")
-
+        if unit:
+            # Update existing unit
+            if unit_description is not None:
+                unit.unit_description = unit_description
+                session.commit()
+                print(f"Updated unit: {unit_name}")
+            else:
+                print(f"No changes made to unit: {unit_name}")
+        else:
+            # Create new unit
+            new_unit = Unit(unit_name=unit_name, unit_description=unit_description)
+            session.add(new_unit)
+            session.commit()
+            print(f"Created new unit: {unit_name}")
     except Exception as e:
-        print(f"Error occurred while populating the database: {e}")
+        session.rollback()  # Roll back the session in case of an error
+        print(f"Error occurred: {e}")
+    finally:
+        session.close()
 
-def populate_questions_from_spreadsheet(spreadsheet_id, credentials_path):
+
+def update_question(unit_name, question_text,question_no, difficulty_level=None):
     """
-    Populate the Question table in the database using data from the 'questions' sheet in a Google Spreadsheet.
+    Update or create a question in the database.
     
-    :param spreadsheet_id: The Google Spreadsheet ID.
-    :param credentials_path: Path to the Google Service Account credentials file.
+    :param unit_name: The name of the unit the question belongs to.
+    :param question_text: The text of the question.
+    :param difficulty_level: Optional difficulty level for the question.
     """
+    session = get_session()
     try:
-        # Step 1: Access the Google Spreadsheet
-        spreadsheet = get_google_spreadsheet(spreadsheet_id, credentials_path)
+        # Find the corresponding unit
+        unit = session.query(Unit).filter_by(unit_name=unit_name).first()
+        if not unit:
+            print(f"Unit '{unit_name}' not found.")
+            return
         
-        # Step 2: Access the 'questions' sheet
-        sheet = spreadsheet.worksheet('sheet1')
-
-        # Step 3: Retrieve all values from the sheet
-        range = 'A2:B'  # Columns A and B without headers
-        questions_data = sheet.get(range)
-
-        # Step 4: Iterate through the rows and update the database
-        for row in questions_data:
-            unit_name = row[0].strip()  # First column: Unit Name
-            question_text = row[1].strip()  # Second column: Question Text
-
-            # Step 5: Check if the row is not empty (skip empty rows)
-            if not unit_name or not question_text:
-                continue
-
-            # Step 6: Update or create the question in the database
-            update_question(unit_name, question_text)
-
-        print("Database updated successfully with question data from spreadsheet.")
-
+        # Check if the question already exists in that unit
+        question = session.query(Question).filter_by(unit_id=unit.id, question_no=question_no).first()
+        
+        if question:
+            # Update existing question
+            if difficulty_level:
+                question.difficulty_level = difficulty_level
+            if question_no:
+                question.question_no = question_no
+                question.question_text = question_text
+            question.updated_at = datetime.utcnow()
+            session.commit()
+            print(f"Updated question: '{question_text}' in unit: '{unit_name}'")
+        else:
+            # Create new question
+            new_question = Question(
+                unit_id=unit.id,
+                question_text=question_text,
+                question_no=question_no,
+                difficulty_level=difficulty_level,
+                created_at=datetime.utcnow(),
+                updated_at=datetime.utcnow()
+            )
+            session.add(new_question)
+            session.commit()
+            print(f"Created new question: '{question_text}' in unit: '{unit_name}'")
+    
     except Exception as e:
-        print(f"Error occurred while populating the database: {e}")
+        session.rollback()  # Rollback in case of an error
+        print(f"Error occurred: {e}")
+    
+    finally:
+        session.close()
 
-
-if __name__ == "__main__":
-    spreadsheet_id = "1kwHVw2V32SvgUWGn398YekCjHyfk4vUF4fouTV-j5-M"
-    credentials_path = "../mentormate-googlecloud.json"
-
+def update_answer(question_no,unit_id, answer_text):
+    """
+    Update or create a sample answer for a question in the database.
+    
+    :param question_text: The text of the question the sample answer is for.
+    :param answer_text: The text of the sample answer.
+    """
+    session = get_session()
+    try:
+        # Find the corresponding question
+        question = session.query(Question).filter_by(question_no=question_no,unit_id=unit_id).first()
+        if not question:
+            print(f"Question with question no '{question_no}'and unit no '{unit_id}' not found.")
+            return
+        
+        # Check if the sample answer already exists for that question
+        sample_answer = session.query(SampleAnswer).filter_by(question_id=question.id).first()
+        
+        if sample_answer:
+            # Update existing sample answer
+            sample_answer.answer_text = answer_text
+            sample_answer.updated_at = datetime.utcnow()
+            session.commit()
+            print(f"Updated sample answer for question with id: '{question.id}'")
+        else:
+            # Create new sample answer
+            new_sample_answer = SampleAnswer(
+                question_id=question.id,
+                answer_text=answer_text,
+                created_at=datetime.utcnow(),
+                updated_at=datetime.utcnow()
+            )
+            session.add(new_sample_answer)
+            session.commit()
+            print(f"Created new sample answer for question with id: '{question.id}'")
+    
+    except Exception as e:
+        session.rollback()  # Rollback in case of an error
+        print(f"Error occurred: {e}")
+    
+    finally:
+        session.close()

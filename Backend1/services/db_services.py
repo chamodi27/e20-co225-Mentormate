@@ -1,5 +1,5 @@
 
-from db.models import User, ChatThread, Message , Unit , Question
+from db.models import User, ChatThread, Message , Unit , Question , SampleAnswer
 from db.database import get_session
 from datetime import datetime
 
@@ -59,81 +59,49 @@ def get_thread_messages(thread_id, user_email):
     finally:
         session.close()
 
-def update_unit(unit_name, unit_description=None):
+# Function to get questions for a given unit
+def get_questions_by_unit(unit_id: int):
     """
-    Update or create a Unit in the database.
+    Fetch questions for a specific unit from the database.
     
-    :param unit_name: The name of the unit to update or create.
-    :param unit_description: An optional description for the unit.
-    """
-    session = get_session()
-    try:
-        # Check if the unit already exists
-        unit = session.query(Unit).filter_by(unit_name=unit_name).first()
-        
-        if unit:
-            # Update existing unit
-            if unit_description is not None:
-                unit.unit_description = unit_description
-                session.commit()
-                print(f"Updated unit: {unit_name}")
-            else:
-                print(f"No changes made to unit: {unit_name}")
-        else:
-            # Create new unit
-            new_unit = Unit(unit_name=unit_name, unit_description=unit_description)
-            session.add(new_unit)
-            session.commit()
-            print(f"Created new unit: {unit_name}")
-    except Exception as e:
-        session.rollback()  # Roll back the session in case of an error
-        print(f"Error occurred: {e}")
-    finally:
-        session.close()
-
-
-def update_question(unit_name, question_text, difficulty_level=None):
-    """
-    Update or create a question in the database.
-    
-    :param unit_name: The name of the unit the question belongs to.
-    :param question_text: The text of the question.
-    :param difficulty_level: Optional difficulty level for the question.
+    :param unit_id: The ID of the unit for which questions need to be fetched.
+    :return: A list of dictionaries, each containing question_no, question_text, and unit_no.
     """
     session = get_session()
-    try:
-        # Find the corresponding unit
-        unit = session.query(Unit).filter_by(unit_name=unit_name).first()
-        if not unit:
-            print(f"Unit '{unit_name}' not found.")
-            return
-        
-        # Check if the question already exists in that unit
-        question = session.query(Question).filter_by(unit_id=unit.id, question_text=question_text).first()
-        
-        if question:
-            # Update existing question
-            if difficulty_level:
-                question.difficulty_level = difficulty_level
-            question.updated_at = datetime.utcnow()
-            session.commit()
-            print(f"Updated question: '{question_text}' in unit: '{unit_name}'")
-        else:
-            # Create new question
-            new_question = Question(
-                unit_id=unit.id,
-                question_text=question_text,
-                difficulty_level=difficulty_level,
-                created_at=datetime.utcnow(),
-                updated_at=datetime.utcnow()
-            )
-            session.add(new_question)
-            session.commit()
-            print(f"Created new question: '{question_text}' in unit: '{unit_name}'")
+    questions = session.query(Question).filter_by(unit_id=unit_id).all()
+
+    if not questions:
+        return []
+
+    # Format the response data
+    question_list = [
+        {
+            'question_id': question.id,
+            'question_no': question.question_no,  # Assuming id is the question number
+            'question_text': question.question_text,
+            'unit_no': question.unit_id
+        }
+        for question in questions
+    ]
     
-    except Exception as e:
-        session.rollback()  # Rollback in case of an error
-        print(f"Error occurred: {e}")
+    return question_list
+
+# Function to get answers for a given question
+def get_answers_by_question_id(question_id: int):
+    """
+    Fetch answers for a specific question from the database.
     
-    finally:
-        session.close()
+    :param question_id: The ID of the question for which answers need to be fetched.
+    :return: A dictionary, containing answer_id and answer_text
+    """
+    session = get_session()
+    answer_db = session.query(SampleAnswer).filter_by(question_id=question_id).first()  # Use `first()` instead of `all()`
+    
+    if not answer_db:
+        return {}
+    
+    # Format the response data
+    answer = {'answer_id': answer_db.id, 'answer_text': answer_db.answer_text}
+    
+    return answer
+

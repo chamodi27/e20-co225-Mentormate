@@ -83,6 +83,7 @@ class Question(Base):
 
     id = Column(Integer, primary_key=True)  # Unique ID for each question
     unit_id = Column(Integer, ForeignKey('units.id'), nullable=False)  # Foreign key to Unit
+    question_no = Column(Integer, nullable=False)  # Question number within the unit
     question_text = Column(Text, nullable=False)  # The text of the question
     difficulty_level = Column(String(50), nullable=True)  # Difficulty of the question (easy, medium, hard) , optional
     created_at = Column(DateTime, default=datetime.utcnow)
