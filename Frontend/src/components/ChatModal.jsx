@@ -4,7 +4,7 @@ import MessageList from './MessageList'; // Your MessageList component
 import MessageInput from './MessageInput'; // Your MessageInput component
 import apiServices from '../services/apiServices';
 
-const ChatModal = ({ question, answer,unit_no,question_no }) => {
+const ChatModal = ({ question, answer,unit_no,question_no , question_id }) => {
   const { isOpen, onOpen, onClose } = useDisclosure(); 
   const [messages, setMessages] = useState([]);
 
@@ -27,7 +27,7 @@ const ChatModal = ({ question, answer,unit_no,question_no }) => {
     ]);
 
     // Placeholder: Process chatbot response here...
-    apiServices.post('/QA',{unit_no:unit_no, question_no:question_no, student_question: message})
+    apiServices.post('/QA',{unit_no:unit_no, question_no:question_no, student_question: message ,question_id:question_id})
       .then(response => {
         const assistantMessage = { content: response.data.message, type: 'ai' };
         setMessages(prevMessages => [...prevMessages, assistantMessage]);
@@ -42,7 +42,7 @@ const ChatModal = ({ question, answer,unit_no,question_no }) => {
         onOpen();
         console.log(question);
         // Review the answer
-        apiServices.post('/review_question',{student_answer: answer, unit_question: question,unit_no:unit_no, question_no:question_no})
+        apiServices.post('/review_question',{student_answer: answer, unit_question: question,unit_no:unit_no, question_no:question_no ,question_id:question_id})
         .then(response => {
           const assistantMessage = { content: response.data.message, type: 'ai' };
           setMessages(prevMessages => [...prevMessages, assistantMessage]);

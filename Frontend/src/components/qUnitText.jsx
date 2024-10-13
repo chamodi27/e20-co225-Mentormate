@@ -5,7 +5,7 @@ import { color } from 'framer-motion';
 import apiServices from '../services/apiServices';
 import MarkdownRenderer from './MarkdownRenderer';
 
-function qUnitText({ question,UnitNo,QuestionNo}) {
+function qUnitText({ question,UnitNo,QuestionNo,QuestionID}) {
   // Step 1: Create a state to store the user's answer
   const [answer, setAnswer] = useState('');
   const [marks,setMarks] = useState(null);
@@ -63,7 +63,7 @@ function qUnitText({ question,UnitNo,QuestionNo}) {
           </Button>
 
           {/* Step 3: Pass both question and answer to ChatModal */}
-          <ChatModal question={question} answer={answer} unit_no={UnitNo} question_no={QuestionNo} />
+          <ChatModal question={question} answer={answer} unit_no={UnitNo} question_no={QuestionNo} question_id={QuestionID} />
         </CardFooter>
       </Card>
       {submit && marks >=60 ? (
