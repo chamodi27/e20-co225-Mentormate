@@ -63,10 +63,10 @@ function DynamicBioUnit() {
           />
           <br/>
         </div>
-      ))}
+      ))};
 
       {/* Error Modal */}
-      <Box 
+      {error && (<Box 
         display="flex"
         justifyContent="center"
         alignItems="center"
@@ -84,6 +84,7 @@ function DynamicBioUnit() {
         </ModalContent>
       </Modal>
       </Box>
+      )}
 
     </>
   );
