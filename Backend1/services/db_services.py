@@ -4,6 +4,7 @@ from db.database import get_session
 from datetime import datetime
 from sqlalchemy import func
 
+
 def get_userID(email):
     session = get_session()
     try:
@@ -330,10 +331,40 @@ def get_unit_name(unit_id: int):
     try:
         unit = session.query(Unit).filter_by(id=unit_id).first()  # Query for the unit
         if unit:
-            return unit.name  # Return the unit's name
+            return unit.unit_name # Return the unit's name
         return None  # Return None if unit not found
     except Exception as e:
         print(f"Error fetching unit name: {e}")
         return None  # Return None in case of an error
     finally:
         session.close()  # Ensure the session is closed after the operation
+
+def get_unit_progress(unit_id, student_id):
+    session = get_session()
+    try:
+        # Get the total number of questions for the given unit
+        total_questions = session.query(Question).filter_by(unit_id=unit_id).count()
+        
+        # Get the student's attempted questions from UnitMarks, safely handling the case where no record exists
+        unit_marks = session.query(UnitMarks).filter_by(unit_id=unit_id, student_id=student_id).first()
+
+        total_questions_attempted = unit_marks.total_questions_attempted if unit_marks else 0
+
+        # Calculate progress, handling the case where total_questions is 0 to avoid division by zero
+        if total_questions:
+            progress = (total_questions_attempted / total_questions) * 100
+        else:
+            progress = 0
+
+        return progress
+
+    except Exception as e:
+        # Log or print the error for debugging purposes
+        print(f"Error occurred while fetching progress: {e}")
+        return 0  # Return a default value in case of error
+
+    finally:
+        # Ensure the session is closed after the operation
+        session.close()
+
+    

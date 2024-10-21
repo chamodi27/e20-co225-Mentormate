@@ -11,7 +11,7 @@ from flask import Flask, request, jsonify
 from mentor_redis import mentorMate
 from flask_cors import CORS
 from auth import create_jwt, decode_jwt, authenticate_user, create_user, check_user_exists
-from services.db_services import get_user_threads, get_thread_messages , get_questions_by_unit , get_answers_by_question_id , get_userID , update_question_marks,update_unit_marks,update_final_grade, get_user,get_unit_marks,get_unit_name
+from services.db_services import get_user_threads, get_thread_messages , get_questions_by_unit , get_answers_by_question_id , get_userID , update_question_marks,update_unit_marks,update_final_grade, get_user,get_unit_marks,get_unit_name,get_unit_progress
 
 app = Flask(__name__)
 # Enable Cross-Origin Resource Sharing (CORS) for the application
@@ -327,7 +327,7 @@ def get_questions():
     # Return the list of questions in JSON format
     return jsonify({'questions': questions}), 200
 
-@app.route('/api/profile', methods=['POST'])
+@app.route('/api/profile', methods=['GET'])
 def profile_data():
     auth_header = request.headers.get('Authorization')
     if not auth_header:
@@ -356,6 +356,7 @@ def profile_data():
 
     # Get the student's marks by unit
     unit_marks = get_unit_marks(student_id=student.id)
+    
 
     # Prepare the response
     response_data = {
@@ -371,14 +372,15 @@ def profile_data():
     # Add each unit's marks to the response
     for unit_mark in unit_marks:
         unit_name = get_unit_name(unit_mark.unit_id)  # Get the unit name from the ID
+        unit_progress = get_unit_progress(unit_id=unit_mark.unit_id,student_id=student.id)
         response_data['unit_marks'].append({
             'unit_id': unit_mark.unit_id,
             'unit_name': unit_name if unit_name else 'Unknown',  # Handle case if unit name is not found
-            'total_marks_obtained': unit_mark.total_marks_obtained,
-            'total_questions_attempted': unit_mark.total_questions_attempted,
+            'unit_progress': unit_progress,
             'average_marks': unit_mark.average_marks  # Uses the property defined in the model
         })
 
+    print("Response Data: ", response_data)
     return jsonify(response_data), 200
 
 
