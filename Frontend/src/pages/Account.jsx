@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Text,
@@ -30,7 +30,6 @@ import {
   CircularProgressLabel,
 } from '@chakra-ui/react';
 import { FaUserEdit, FaSignOutAlt, FaCalendarAlt, FaMapMarkerAlt, FaLanguage, FaEnvelope, FaCreditCard, FaLock } from 'react-icons/fa';
-import apiServices from '../services/apiServices';  // Make sure to import your API services.
 
 function Account() {
   // Managing state for active section, profile picture, password modal, card details modal, and form data
@@ -46,42 +45,21 @@ function Account() {
     language: 'English',
     email: 'ikakodesign@gmail.com',
   });
-  const [error, setError] = useState('');
 
-  // FUNCTION FOR API CALLING
-  // Fetching user profile data when the page loads
-  useEffect(() => {
-    const fetchProfile = () => {
-      apiServices.get('/account')
-        .then(response => {
-          setFormData({
-            name: response.data.name,
-            dob: response.data.dob,
-            address: response.data.address,
-            language: response.data.language,
-            email: response.data.email,
-          });
-          setProfilePicture(response.data.profilePicture || 'https://via.placeholder.com/80');
-        })
-        .catch(error => {
-          setError(error.response?.data?.error || "An error occurred while fetching profile data");
-        });
-    };
-
-    fetchProfile();
-  }, []); // Runs only once when the component mounts
-
-  // This handles form submission for profile updates
-  const handleProfPage = () => {
-    setEditing(false); // Disable editing after submission
-    apiServices.post('/profile', formData)
-      .then(response => {
-        console.log('Profile updated successfully:', response.data);
-      })
-      .catch(error => {
-        setError(error.response?.data?.error || "An error occurred while updating the profile");
-      });
-  };
+  const [unitsProgress] = useState([
+    { unit: 'Unit 01', progress: 80, marks: 85 },
+    { unit: 'Unit 02', progress: 50, marks: 78 },
+    { unit: 'Unit 03', progress: 90, marks: 90 },
+    { unit: 'Unit 04', progress: 40, marks: 65 },
+    { unit: 'Unit 05', progress: 50, marks: 70 },
+    { unit: 'Unit 06', progress: 70, marks: 88 },
+    { unit: 'Unit 07', progress: 30, marks: 50 },
+    { unit: 'Unit 08', progress: 60, marks: 75 },
+    { unit: 'Unit 09', progress: 100, marks: 95 },
+    { unit: 'Unit 10', progress: 55, marks: 68 },
+  ]);
+  
+  const overallGrade = 85; // This can be dynamically calculated based on units' marks
 
   // Functions for handling state
   const handleEditClick = (field) => {
@@ -94,7 +72,6 @@ function Account() {
   };
 
   const handleSave = () => {
-    handleProfPage();  // Save the updated profile information
     setEditing(null);
   };
 
@@ -115,12 +92,16 @@ function Account() {
   const handleCloseCardDetails = () => setIsCardDetailsOpen(false);
 
   return (
+
+
     <Box bg={useColorModeValue('gray.300', 'gray.800')} minH="100vh" p={6}>
       {/* Navbar */}
       <Box mb={8}>
         <Text fontSize="2xl" fontWeight="bold" color="blue.700">My Account</Text>
       </Box>
 
+  
+      
       <HStack align="flex-start" spacing={6}>
         {/* Sidebar */}
         <VStack
@@ -260,28 +241,32 @@ function Account() {
               <HStack justify="space-between" mb={4}>
                 <Text fontSize="xl" fontWeight="bold">Overall Grade</Text>
                 <Box
-                  borderRadius="full"
-                  bg="green.200"
-                  w={16}
-                  h={16}
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
+                  borderWidth="1px"
+                  borderRadius="lg"
+                  p={4}
+                  bg={useColorModeValue('blue.100', 'blue.900')}
                 >
-                  <Text fontSize="2xl" fontWeight="bold">A</Text>
+                  <Text fontSize="2xl">{overallGrade}%</Text>
                 </Box>
               </HStack>
-
-              <Text fontSize="sm" color="gray.500">Keep up the good work! You're excelling in your courses.</Text>
             </Box>
 
-            {/* Circular progress bar */}
-            <Box textAlign="center">
-              <CircularProgress value={80} size="120px" color="green.400">
-                <CircularProgressLabel>80%</CircularProgressLabel>
-              </CircularProgress>
-              <Text mt={4} fontSize="xl">Course Completion</Text>
-            </Box>
+            {/* Units Progress */}
+            <Stack spacing={6}>
+              {unitsProgress.map((unit, index) => (
+                <Box key={index} p={6} bg={useColorModeValue('gray.100', 'gray.800')} boxShadow="lg" rounded="lg">
+                  <Heading size="md" mb={4}>{unit.unit}</Heading>
+                  <HStack spacing={4} align="center">
+                    <CircularProgress value={unit.progress} color="blue.400" size="80px">
+                      <CircularProgressLabel>{unit.progress}%</CircularProgressLabel>
+                    </CircularProgress>
+                    <Text fontSize="xl" fontWeight="bold">
+                      Marks: {unit.marks}%
+                    </Text>
+                  </HStack>
+                </Box>
+              ))}
+            </Stack>
           </Box>
         )}
       </HStack>
@@ -293,16 +278,22 @@ function Account() {
           <ModalHeader>Change Password</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {/* Form for changing password */}
             <FormControl>
               <FormLabel>Current Password</FormLabel>
-              <ChakraInput type="password" />
-              <FormLabel mt={4}>New Password</FormLabel>
-              <ChakraInput type="password" />
-              <FormLabel mt={4}>Confirm New Password</FormLabel>
-              <ChakraInput type="password" />
-              <Button mt={6} colorScheme="blue" onClick={handleCloseChangePassword}>Submit</Button>
+              <ChakraInput type="password" placeholder="Enter current password" />
             </FormControl>
+            <FormControl mt={4}>
+              <FormLabel>New Password</FormLabel>
+              <ChakraInput type="password" placeholder="Enter new password" />
+              <FormHelperText>Make sure your new password is strong.</FormHelperText>
+            </FormControl>
+            <FormControl mt={4}>
+              <FormLabel>Confirm New Password</FormLabel>
+              <ChakraInput type="password" placeholder="Confirm new password" />
+            </FormControl>
+            <Button colorScheme="blue" mt={4} onClick={handleCloseChangePassword}>
+              Save
+            </Button>
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -314,13 +305,21 @@ function Account() {
           <ModalHeader>Billing & Payments</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            {/* Display the user's saved payment details */}
             <FormControl>
               <FormLabel>Card Number</FormLabel>
-              <ChakraInput type="text" placeholder="**** **** **** 1234" />
-              <FormHelperText>We only store the last four digits of your card.</FormHelperText>
-              <Button mt={6} colorScheme="blue" onClick={handleCloseCardDetails}>Close</Button>
+              <ChakraInput type="text" placeholder="Enter card number" />
             </FormControl>
+            <FormControl mt={4}>
+              <FormLabel>Expiration Date</FormLabel>
+              <ChakraInput type="text" placeholder="MM/YY" />
+            </FormControl>
+            <FormControl mt={4}>
+              <FormLabel>CVV</FormLabel>
+              <ChakraInput type="text" placeholder="Enter CVV" />
+            </FormControl>
+            <Button colorScheme="blue" mt={4} onClick={handleCloseCardDetails}>
+              Save
+            </Button>
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -328,5 +327,36 @@ function Account() {
   );
 }
 
-export default Account;
+// Reusable Profile Card Component
+function ProfileCard({ icon, title, description, type, isEditing, onEditClick, onSave, onChange }) {
+  return (
+    <Box p={4} borderWidth="1px" borderRadius="lg" bg={useColorModeValue('gray.50', 'gray.700')} boxShadow="sm">
+      <HStack justify="space-between" align="center">
+        <HStack spacing={4} align="center">
+          <Icon as={icon} w={6} h={6} color="blue.500" />
+          <VStack align="flex-start" spacing={0}>
+            <Text fontSize="lg" fontWeight="bold">{title}</Text>
+            {isEditing ? (
+              <Input
+                name={title.toLowerCase()}
+                type={type === 'dropdown' ? 'text' : type}
+                placeholder={`Enter your ${title.toLowerCase()}`}
+                onChange={onChange}
+              />
+            ) : (
+              <Text>{description}</Text>
+            )}
+          </VStack>
+        </HStack>
+        {isEditing ? (
+          <Button colorScheme="blue" onClick={onSave}>Save</Button>
+        ) : (
+          <Button variant="outline" onClick={onEditClick}>Edit</Button>
+        )}
+      </HStack>
+    </Box>
+    
+  );
+}
 
+export default Account;
