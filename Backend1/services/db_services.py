@@ -4,6 +4,34 @@ from db.database import get_session
 from datetime import datetime
 from sqlalchemy import func
 
+def get_userID(email):
+    session = get_session()
+    try:
+        user = session.query(User).filter_by(email=email).first()
+        if user:
+            return user.id
+        else:
+            return None
+    except Exception as e:
+        print(e)
+    finally:
+        session.close()
+
+def get_user(email):
+    session = get_session()
+    try:
+        user = session.query(User).filter_by(email=email).first()
+        if user:
+            return user
+        else:
+            return None
+    except Exception as e:
+        print(e)
+    finally:
+        session.close()
+
+
+
 def get_user_threads(user_email):
     """
     Retrieve all chat threads associated with a user's email.
@@ -201,7 +229,7 @@ def update_unit_marks(student_id: int, unit_id: int):
         session.close()
 
 # Function to calculate and update final grade (this can be used later after updating question/unit marks)
-def update_final_grade(student_id: int, subject_id: int):
+def update_final_grade(student_id: int, subject_id=1):
     """
     Update the final grade for a student in a specific subject based on their unit marks.
     
@@ -225,7 +253,7 @@ def update_final_grade(student_id: int, subject_id: int):
         # Calculate the overall marks based on attempted questions
         overall_marks = 0
         if total_questions_attempted > 0:
-            overall_marks = (total_marks_obtained / total_questions_attempted) * 100  # Assuming the marks are out of 100
+            overall_marks = (total_marks_obtained / total_questions_attempted)  # Assuming the marks are out of 100
         
         # Determine the letter grade based on overall marks
         if overall_marks >= 75:
@@ -271,3 +299,41 @@ def update_final_grade(student_id: int, subject_id: int):
     finally:
         session.close()
 
+
+def get_unit_marks(student_id: int):
+    """
+    Fetch all unit marks for a specific student.
+    
+    :param student_id: The ID of the student.
+    :return: A list of UnitMarks objects for the specified student.
+    """
+    session = get_session()  # Get a new database session
+    try:
+        # Query to filter unit marks by student_id
+        unit_marks = session.query(UnitMarks).filter_by(student_id=student_id).all()
+        return unit_marks
+    except Exception as e:
+        print(f"Error fetching unit marks: {e}")
+        return []  # Return an empty list in case of an error
+    finally:
+        session.close()  # Ensure the session is closed after the operation
+
+
+def get_unit_name(unit_id: int):
+    """
+    Fetch the name of a unit by its ID.
+
+    :param unit_id: The ID of the unit.
+    :return: The name of the unit, or None if not found.
+    """
+    session = get_session()  # Get a new database session
+    try:
+        unit = session.query(Unit).filter_by(id=unit_id).first()  # Query for the unit
+        if unit:
+            return unit.name  # Return the unit's name
+        return None  # Return None if unit not found
+    except Exception as e:
+        print(f"Error fetching unit name: {e}")
+        return None  # Return None in case of an error
+    finally:
+        session.close()  # Ensure the session is closed after the operation
