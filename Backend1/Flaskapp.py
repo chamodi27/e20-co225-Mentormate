@@ -264,6 +264,7 @@ def grade():
 
     sample_answer_dict = get_answers_by_question_id(question_id)
     sample_answer = sample_answer_dict['answer_text']
+    print("Sample Answer: ", sample_answer)
 
     mentor = mentorMate(user_email=user_email)
     response = mentor.grade_student_answers(student_answer=student_answer,question=question,reference_answer=sample_answer)
