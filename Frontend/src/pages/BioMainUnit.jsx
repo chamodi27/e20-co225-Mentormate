@@ -38,11 +38,13 @@ const UnitCard = ({ imageSrc, text, onClick }) => (
     _hover={{ transform: 'scale(1.05)', transition: '0.2s ease-in-out' }}
   >
     <Image src={imageSrc} alt={text} boxSize="250px" objectFit="cover" />
-    <Box p="5" boxShadow="lg" bg="gray.300" color="indigo.200" fontWeight="bold"  >
-      <Text textAlign="center">{text}</Text>
+    <Box p="5" boxShadow="lg" bg="gray.300" color="indigo.200" fontWeight="bold">
+      {/* Only use dangerouslySetInnerHTML */}
+      <Text textAlign="center" dangerouslySetInnerHTML={{ __html: text }} />
     </Box>
   </Box>
 );
+
 
 /**
  * BioMainUnit component to display the main biology unit selection screen.
@@ -92,12 +94,12 @@ function BioMainUnit() {
           />
           <UnitCard 
             imageSrc={unit6} 
-            text="Unit 06: Genetics" 
+            text= "Unit 06: <br/> Genetics" 
             onClick={() => handleNavigation(6)}
           />
           <UnitCard 
             imageSrc={unit7} 
-            text="Unit 07: Molecular Biology" 
+            text="Unit 07: Molecular <br/>Biology" 
             onClick={() => handleNavigation(7)}
           />
           <UnitCard 
@@ -107,18 +109,17 @@ function BioMainUnit() {
           />
           <UnitCard 
             imageSrc={unit9} 
-            text="Unit 09: Microbiology" 
+            text="Unit 09: <br/>Microbiology" 
             onClick={() => handleNavigation(9)}
           />
           <UnitCard 
             imageSrc={unit10} 
-            text="Unit 10: Applied Biology" 
+            text="Unit 10: Applied <br/>Biology" 
             onClick={() => handleNavigation(10)}
           />
           
           <UnitCard imageSrc={paper} text="A/L 2022 paper" onClick={() => navigate('/paper2022')} />
           <UnitCard imageSrc={paper} text="A/L 2021 paper" onClick={() => navigate('/paper2021')} />
-          <UnitCard imageSrc={paper} text="A/L 2020 paper" onClick={() => navigate('/paper2020')} />
         </SimpleGrid>
       </Box>
     </>
