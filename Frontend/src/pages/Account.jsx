@@ -30,7 +30,7 @@ import {
   CircularProgressLabel,
 } from '@chakra-ui/react';
 import apiServices from '../services/apiServices';
-import { FaSignOutAlt } from 'react-icons/fa';
+import { FaSignOutAlt,FaCalendarAlt, FaMapMarkerAlt, FaLanguage, FaEnvelope } from 'react-icons/fa';
 
 
 
@@ -177,7 +177,47 @@ function Account() {
                 onSave={handleSave}
                 onChange={handleInputChange}
               />
-              {/* Add other editable fields as needed */}
+            
+              <ProfileCard
+                icon={FaCalendarAlt}
+                title="Date of Birth"
+                description={formData.dob}
+                type="date"
+                isEditing={editing === 'dob'}
+                onEditClick={() => handleEditClick('dob')}
+                onSave={handleSave}
+                onChange={handleInputChange}
+              />
+              <ProfileCard
+                icon={FaMapMarkerAlt}
+                title="Address"
+                description={formData.address}
+                type="address"
+                isEditing={editing === 'address'}
+                onEditClick={() => handleEditClick('address')}
+                onSave={handleSave}
+                onChange={handleInputChange}
+              />
+              <ProfileCard
+                icon={FaLanguage}
+                title="Language"
+                description={formData.language}
+                type="dropdown"
+                isEditing={editing === 'language'}
+                onEditClick={() => handleEditClick('language')}
+                onSave={handleSave}
+                onChange={handleInputChange}
+              />
+              <ProfileCard
+                icon={FaEnvelope}
+                title="Contactable at"
+                description={formData.email}
+                type="email"
+                isEditing={editing === 'email'}
+                onEditClick={() => handleEditClick('email')}
+                onSave={handleSave}
+                onChange={handleInputChange}
+              />
             </Stack>
           </Box>
         ) : (
