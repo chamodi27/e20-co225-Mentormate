@@ -356,7 +356,7 @@ def get_unit_progress(unit_id, student_id):
         else:
             progress = 0
 
-        return progress
+        return round(progress,2)
 
     except Exception as e:
         # Log or print the error for debugging purposes

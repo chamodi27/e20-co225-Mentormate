@@ -365,7 +365,7 @@ def profile_data():
             'name': student.user_name,
             'email': student.email,
         },
-        'final_grade': final_grade,
+        'final_grade':final_grade,
         'unit_marks': []
     }
 
@@ -377,7 +377,7 @@ def profile_data():
             'unit_id': unit_mark.unit_id,
             'unit_name': unit_name if unit_name else 'Unknown',  # Handle case if unit name is not found
             'unit_progress': unit_progress,
-            'average_marks': unit_mark.average_marks  # Uses the property defined in the model
+            'average_marks': round(unit_mark.average_marks,2) # Uses the property defined in the model
         })
 
     print("Response Data: ", response_data)
